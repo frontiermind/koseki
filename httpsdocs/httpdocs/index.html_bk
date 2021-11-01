@@ -3,7 +3,6 @@
 <html>
 <head>
 <link href="css\style.css" rel="stylesheet" type="text/css">
-<link href="./css/style.css" rel="stylesheet" type="text/css">
 <meta http-equiv="Content-Type" content="text/html; charset=Shift_JIS">
 <meta name="keywords" content="koseki,小関法律事務所,小関,法律事務所,小関勇二,小関健二,新橋法律事務所"/>
 <title>小関法律事務所</title>
@@ -39,7 +38,7 @@
 		<a href="index.html#goaisatsu"><img class="quarter" src="goaisatsu_tab2.png"></a>
 		<a href="index.html#bengoshi"><img class="quarter" src="bengoshi_tab2.png"></a>
 		<a href="index.html#access"><img class="quarter" src="access_tab2.png"></a>
-		<a href="index.html#contact"><img class="quarter" src="toiawase_tab2.png"></a>
+		<a href="http://koseki-law.jp/Form/?id=1"><img class="quarter" src="toiawase_tab2.png"></a>
 	</nobr>
 
 </div>
@@ -163,33 +162,7 @@
 
 
 
-
-<div class="main3">
-	<img id="contact" class="default" src="toiawase.png">
-
-	<br/>
-	<br/>
-	<form action="./mail.php" method="post">
-		<div class="block--contents--table">
-		<dl>
-			<dt><span class="u-c-red">※</span>メールアドレス：</dt>
-			<dd><input class="full-width" type="text" name="メールアドレス" required></dd>
-		  </dl>
-
-		  <dl>
-			<dt><span class="u-c-red">※</span>お問い合わせ内容：</dt>
-			<dd><textarea name="内容" required></textarea></dd>
-		  </dl>
-		</div>
-		  <div class="c-btn c-btn--center u-mt-30">
-			<input class="btn" type="submit" value="送信">
-		  </div>
-	</form>
-	<br/>
 </div>
-
-
-
 
 <div class="footer">
 		(C) 2017 小関法律事務所
