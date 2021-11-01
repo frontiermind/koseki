@@ -1,0 +1,234 @@
+{htmlspchars_recursive($default)}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+	<meta http-equiv="content-type" content="text/html;charset=Shift_JIS">
+	<title>フォームデザイン設定</title>
+	<link href="coolie.css" rel="stylesheet" type="text/css">
+	<style type="text/css" media="screen">
+	<!--
+.class12  { color: white; font-weight: 500; font-size: 12px }
+-->
+	</style>
+	<script language="JavaScript" type="text/javascript" src="coolie.js"></script>
+	</head>
+
+	<body bgcolor="#ffffff" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+		<div align="left">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="class" bgcolor="#0066cc" width="20"></td>
+					<td class="class" bgcolor="#0066cc" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="#0066cc" width="18"></td>
+					<td class="class" bgcolor="#0066cc"></td>
+				</tr>
+				<tr>
+					<td class="class" bgcolor="white" width="20"></td>
+					<td class="class" bgcolor="white" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="white" width="18"></td>
+					<td class="class" bgcolor="white"></td>
+				</tr>
+				<tr height="14">
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="20" height="28"><img src="img/space.gif" alt="" height="20" width="20" border="0"></td>
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="248" height="28"><img src="img/setei.gif" alt="" height="17" width="114" border="0"></td>
+					<td rowspan="2" valign="top" width="18" height="28"><img src="img/bar_p.gif" alt="" height="30" width="18" border="0"></td>
+					<td class="class_tbg" bgcolor="#0066cc" height="14">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="12" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr height="2">
+					<td bgcolor="white" height="14"></td>
+				</tr>
+				<tr>
+					<td width="20"></td>
+					<td colspan="3">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="1" border="0"></div>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" background="img/back.jpg">
+				<tr>
+					<td class="class_tbg"><img src="img/desing.jpg" alt="" height="30" width="146" border="0"></td>
+				  <td width="370" align="right" valign="middle" class="class_tbg" background="img/back.jpg" ><a href="admin.php" class="back">管理メニュー</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=formList" class="back">フォーム一覧</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=formEdit&id={$id}" class="back">フォーム設定 ▲</a><img src="img/space.gif" alt="" height="20" width="10" border="0"></td>
+				</tr>
+			</table>
+			<form name="editDesign" method="post" action="admin.php" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="{$id}">
+			<input type="hidden" name="mode" value="editDesign">
+			<table width="680" border="0" cellspacing="3" cellpadding="0">
+				<tr height="20">
+					<td colspan="3" align="left" height="20">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="20" width="1" border="0"><img src="img/space.gif" alt="" height="15" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■基本文字色</td>
+					<td rowspan="22" align="left" width="20"> <img src="img/space.gif" alt="" height="1" width="20" border="0"></td>
+					<td align="left">{if ($err.body_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.body_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[body_color]" type="text" id="body_color" value="{$default.body_color}" size="8" maxlength="7" border="0">
+						<script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.body_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■基本文字サイズ</td>
+					<td align="left">{if ($err.body_fontsize.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.body_fontsize.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input name="config[body_fontsize]" type="text" id="body_fontsize" value="{$default.body_fontsize}" size="3" border="0"> 
+							pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■ページ背景色</td>
+					<td align="left">{if ($err.body_bgcolor.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.body_bgcolor.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[body_bgcolor]" type="text" id="body_bgcolor" value="{$default.body_bgcolor}" size="8" maxlength="7" border="0">
+						<script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.body_bgcolor)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■ページ背景画像　登録・変更</td>
+					<td align="left"><input name="body_background" type="file" id="body_background" size="30">　
+							<input type="hidden" name="config[body_background_fixed]" value="0">
+							<input type="checkbox" name="config[body_background_fixed]" value="1" border="0" {if ($default.body_background_fixed == 1)}checked{/if}>
+						固定する（IEのみ）
+						　{if ($default.body_background)}　*登録済み&gt;&gt;
+							<input type="checkbox" name="config[body_background]" value="0">
+							削除する{/if}</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号</td>
+					<td align="left"><input type="hidden" name="config[query_no]" value="0">
+						<input type="checkbox" name="config[query_no]" value="1" border="0" {if ($default.query_no == 1)}checked{/if}>表示する</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 文字サイズ</td>
+					<td align="left">{if ($err.query_no_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_no_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input type="text" name="config[query_no_size]" value="{$default.query_no_size}" size="3" border="0"> 
+							pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 文字色</td>
+					<td align="left">{if ($err.query_no_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_no_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[query_no_color]" type="text" id="query_no_color" value="{$default.query_no_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.query_no_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 背景色</td>
+					<td align="left">{if ($err.query_no_bgcolor.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_no_bgcolor.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[query_no_bgcolor]" type="text" id="query_no_bgcolor" value="{$default.query_no_bgcolor}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.query_no_bgcolor)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 画像登録・変更</td>
+					<td align="left"><input type="file" name="query_no_img" size="30">
+						{if ($default.query_no_img)}　*登録済み&gt;&gt;
+						<input type="checkbox" name="config[query_no_img]" value="0">
+						削除する{/if}</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 接頭語</td>
+					<td align="left"><input type="text" name="config[query_no_pretext]" value="{$default.query_no_pretext}" size="4" border="0">　※例）質問、■、●等入力</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 接頭語文字サイズ</td>
+					<td align="left">{if ($err.query_no_pretext_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_no_pretext_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input type="text" name="config[query_no_pretext_size]" value="{$default.query_no_pretext_size}" size="3" border="0">
+						pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問番号 接頭語文字色</td>
+					<td align="left">{if ($err.query_no_pretext_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_no_pretext_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[query_no_pretext_color]" type="text" id="query_no_pretext_color" value="{$default.query_no_pretext_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.query_no_pretext_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問 文字サイズ</td>
+					<td align="left">{if ($err.query_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input type="text" name="config[query_size]" value="{$default.query_size}" size="3" border="0">
+						pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問 文字色</td>
+					<td align="left">{if ($err.query_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[query_color]" type="text" id="query_color" value="{$default.query_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.query_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■質問 背景色</td>
+					<td align="left">{if ($err.query_bgcolor.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.query_bgcolor.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[query_bgcolor]" type="text" id="query_bgcolor" value="{$default.query_bgcolor}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.query_bgcolor)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目 文字サイズ</td>
+					<td align="left">{if ($err.input_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.input_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input type="text" name="config[input_size]" value="{$default.input_size}" size="3" border="0">
+						pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目 文字色</td>
+					<td align="left">{if ($err.input_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.input_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[input_color]" type="text" id="input_color" value="{$default.input_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.input_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目 背景色</td>
+					<td align="left">{if ($err.input_bgcolor.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.input_bgcolor.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[input_bgcolor]" type="text" id="input_bgcolor" value="{$default.input_bgcolor}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.input_bgcolor)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目前コメント 文字サイズ</td>
+					<td align="left">{if ($err.precomment_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.precomment_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input type="text" name="config[precomment_size]" value="{$default.precomment_size}" size="3" border="0">
+						pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目前コメント 文字色</td>
+					<td align="left">{if ($err.precomment_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.precomment_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[precomment_color]" type="text" id="precomment_color" value="{$default.precomment_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.precomment_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目後コメント 文字サイズ</td>
+					<td align="left">{if ($err.appcomment_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.appcomment_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input type="text" name="config[appcomment_size]" value="{$default.appcomment_size}" size="3" border="0">
+						pt</td>
+				</tr>
+				<tr>
+					<td align="left" width="231">■項目後コメント 文字色</td>
+					<td align="left">{if ($err.appcomment_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.appcomment_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[appcomment_color]" type="text" id="appcomment_color" value="{$default.appcomment_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editDesign.appcomment_color)">カラーピッカー</a>');</script></td>
+				</tr>
+			</table>
+			<hr>
+			<input type="submit" name="submitButtonName" value="設定">
+			</form>
+		</div>
+{php}require_once "colorPicker.php"{/php}
+	</body>
+
+</html>

@@ -1,0 +1,384 @@
+#!/usr/bin/perl -w
+
+use strict;
+use File::Copy;
+
+
+sub modify_file
+{
+    my ($fname, $fparams) = @_;
+
+    unless (open F, $fname){
+        print STDERR "postinstall: can't open file `$fname` for reading\n";
+        return 0;
+    }
+
+    my $file_content;
+    while (<F>){
+        $file_content .= $_;
+    }
+    close F;
+
+    my ($k,$v);
+    while (($k,$v)=each(%$fparams)){
+        $file_content =~ s/\@\@${k}\@\@/$v/g;
+    }
+
+    unless (open F, ">$fname"){
+        print STDERR "postinstall: can't open file `$fname` for writing\n";
+        return 0;
+    }
+    print F $file_content;
+    close F;
+    return 1;
+}
+
+
+#########################
+#	Quote Section	#
+#########################
+
+sub mysql_quote
+{
+    my ($qstr) = @_;
+    # replace ' for \'
+    # replace \ for \\
+    $qstr =~ s/\\/\\\\/g;
+    $qstr =~ s/'/\\'/g;
+    return $qstr;
+}
+
+sub php_quote
+{
+    my ($qstr) = @_;
+    # replace ' for \'
+    # replace \ for \\
+    $qstr =~ s/\\/\\\\/g;
+    $qstr =~ s/'/\\'/g;
+    return $qstr;
+}
+
+sub shell_quote
+{
+    my ($qstr) = @_;
+    # replace ' for \'
+    # replace \ for \\
+    $qstr =~ s/\\/\\\\/g;
+    $qstr =~ s/"/\\\"/g;
+    $qstr =~ s/\$/\\\$/g;
+    return $qstr;
+}
+
+sub parse_input_to_hash
+{
+    my %params = ();
+    while (<STDIN>){
+        my ($k,$v);
+        if (/^([^=]+)=(.+)$/){
+            $v = $2;
+            chomp $v;
+            $k = $1;
+            $params{"$k"} = $v;
+            print STDERR $_;
+        }
+    }
+    return %params;
+}
+
+sub parse_plesk_config_file
+{
+    my %psa_params = ();
+    open PSACONF, '/etc/psa/psa.conf';
+    print "opening psa config\n";
+    while (<PSACONF>){
+        chomp;
+        unless (/^#/){
+            if (/^(\s*[_a-zA-Z]+)\s+(.+?)\s*$/){
+                # print "$1 : $2\n";
+                $psa_params{$1} = $2;
+            }
+        }
+    }
+    close PSACONF;
+    return %psa_params;
+}
+
+sub check_parameter
+{
+    my ($param, %params) = @_;
+    unless (defined $params{$param}){
+        return 0;
+    } else {
+        return 1;
+    }
+}
+
+sub check_parameters
+{
+    my ($imp_params, %params) = @_;
+    my $is_error = 0;
+    foreach (@$imp_params){
+        unless (check_parameter($_, %params)){
+            print "postinstall: no parameter $_ specified for application\n";
+            $is_error = 1;
+        }
+    }
+    if ($is_error){
+        exit 1;
+    }
+}
+
+
+#########################
+#	SSL Section	#
+#########################
+
+sub get_proto
+{
+    my ($p_ssl_target_directory) = @_;
+    my $proto;
+    if ($p_ssl_target_directory eq 'true'){
+            $proto = 'https://';
+    } else {
+            $proto = 'http://';
+    }
+    return $proto;
+}
+
+sub get_documents_directory
+{
+    my ($p_ssl_target_directory) = @_;
+    my $documents_directory;
+    if ($p_ssl_target_directory eq 'true'){
+            $documents_directory = 'httpsdocs';
+    } else {
+            $documents_directory = 'httpdocs';
+    }
+    return $documents_directory;
+}
+
+sub get_ssl_enabled
+{
+    my ($p_ssl_target_directory) = @_;
+    my $ssl_enabled;
+    if ($p_ssl_target_directory eq 'true'){
+            $ssl_enabled = 1;
+    } else {
+            $ssl_enabled = 0;
+    }
+    return $ssl_enabled;
+}
+
+
+################################# 
+#       Path to root directory  # 
+################################# 
+
+sub get_root_dir
+{
+    my ($documents_directory, $p_vhost_path, $p_install_prefix) = @_;
+    my $root_dir = '';
+    $root_dir = $p_vhost_path.'/'.$documents_directory.'/'.$p_install_prefix;
+
+    if($p_install_prefix eq "."){
+        $root_dir =~ s/\/\.//g;
+    }
+    return $root_dir;
+}
+
+sub get_root_url
+{
+    my ($proto, $documents_directory, $p_domain_name, $p_install_prefix) = @_;
+    my $root_url = '';
+    $root_url = $proto.$p_domain_name."/".$p_install_prefix;
+
+    if($p_install_prefix eq "."){
+        $root_url =~ s/\/\.//g;
+    }
+    return $root_url;
+}
+
+sub get_root_url_cgi
+{
+    my ($proto, $documents_directory, $p_domain_name, $p_install_prefix) = @_;
+    my $root_url_cgi = '';
+    $root_url_cgi = $proto.$p_domain_name.'/'.'cgi-bin'.'/'.$p_install_prefix;
+
+    if($p_install_prefix eq "."){
+	$root_url_cgi =~ s/\/\.//g;
+    }
+    return $root_url_cgi;
+}
+				
+				
+sub get_root_dir_cgi
+{
+    my ($p_vhost_path, $p_install_prefix) = @_;
+    my $root_dir_cgi = $p_vhost_path.'/'.'cgi-bin'.'/'.$p_install_prefix;
+
+    if($p_install_prefix eq "."){
+        $root_dir_cgi =~ s/\/\.//g;
+    }
+    return $root_dir_cgi;
+}
+
+sub get_install_prefix
+{
+    my ($p_install_prefix) = @_;
+    my $install_prefix;
+    if($p_install_prefix eq "."){
+        $install_prefix = "";
+    }
+    else{
+        $install_prefix = $p_install_prefix;
+    }
+    return $install_prefix;
+}
+
+
+#################################################
+#       Modification of configuration files     # 
+################################################# 
+
+sub config_file_modification
+{
+    my ($app_config_template, $root_dir, $config_files, %config_params) = @_;
+    if (-e "${root_dir}/${app_config_template}"){
+        foreach my $config_file (@$config_files) {
+            my $config_file_full = $config_file;
+            my $config_template = "${root_dir}/${app_config_template}";
+            unless (open F, $config_template){
+                print "can't open file `$config_template` for reading\n";
+                return 0;
+            }
+            my $conf_templ_str;
+            my $param_name;
+            while (<F>){
+                my $comma = 0;
+                $conf_templ_str = $_;
+                $conf_templ_str =~ s/\n//;
+                ($param_name) = split(/=/,$conf_templ_str);
+                if($param_name eq ''){
+		    $comma = 1;
+                    ($param_name) = split(/,/,$conf_templ_str);
+                }
+                ($param_name) =~ s/\$/\\\$/g;
+                ($param_name) =~ s/\'/\\'/g;
+                ($param_name) =~ s/\"/\\"/g;
+                ($param_name) =~ s/\[/\\[/g;
+                ($param_name) =~ s/\]/\\]/g;
+                ($param_name) =~ s/\(/\\(/g;
+                ($param_name) =~ s/\)/\\)/g;
+
+                my $file_content = '';
+                my $cur_str = '';
+                unless (open F2, $config_file_full){
+                    print "can't open file `$config_template` for reading\n";
+                    return 0;
+                }
+
+                while (<F2>){
+                   $cur_str = $_;
+                    if($comma){
+                        $cur_str =~ s/${param_name},[^\n]*/${conf_templ_str}/;
+                    }
+                    else{
+                        $cur_str =~ s/${param_name}=[^\n]*/${conf_templ_str}/;
+                    }
+                    $file_content .= $cur_str;
+                }
+                close F2;
+                unless (open F3, ">$config_file_full"){
+                    print "can't open file `$config_file_full` for writing\n";
+                    return 0;
+                }
+                print F3 $file_content;
+                close F3;
+            }
+            unless (modify_file($config_file_full, \%config_params)){
+                print STDERR "couldn't change file ${config_file_full}\n";
+                exit 1;
+            }
+        }
+        close F;
+    }
+    else{
+        foreach my $config_file (@$config_files) {
+            my $config_file_full = $config_file;
+            my $config_file_full_dist = $config_file;
+            $config_file_full_dist .= ".in";
+            unless(-e $config_file_full_dist){
+                $config_file_full_dist = $config_file;
+                $config_file_full_dist =~ s/\.php/\.dist\.php/;
+                $config_file_full_dist =~ s/\.html/\.dist\.html/;
+                $config_file_full_dist =~ s/\.ini/\.dist\.ini/;
+                $config_file_full_dist =~ s/\.inc/\.dist\.inc/;
+                $config_file_full_dist =~ s/\.pl/\.dist\.pl/;
+                $config_file_full_dist =~ s/\.dist\.inc\./\.inc\./;
+                $config_file_full_dist =~ s/\.dist\.ini\./\.ini\./;
+            }
+            copy($config_file_full_dist, $config_file_full);
+            unless (modify_file($config_file_full, \%config_params)){
+                print STDERR "couldn't change file ${config_file_full}\n";
+                exit 1;
+            }
+        }
+    }
+}
+
+
+######################################################################################
+######################################################################################
+
+my @imp_params = qw( vhost_path domain_name install_prefix ssl_target_directory);
+my $is_error=0;
+
+#########################
+#	Quote Section	#
+#########################
+
+my %params = parse_input_to_hash();
+my %psa_params = parse_plesk_config_file();
+check_parameters(\@imp_params, %params);
+
+#########################
+#	SSL Section	#
+#########################
+
+my $proto = get_proto($params{'ssl_target_directory'});
+my $documents_directory = get_documents_directory($params{'ssl_target_directory'});
+my $ssl_enabled = get_ssl_enabled($params{'ssl_target_directory'});
+
+################################# 
+#       Path to root directory  # 
+################################# 
+
+my $root_dir = get_root_dir($documents_directory, $params{'vhost_path'}, $params{'install_prefix'});
+my $root_url = get_root_url($proto, $documents_directory, $params{'domain_name'}, $params{'install_prefix'});
+my $root_url_cgi = get_root_url_cgi($proto, $documents_directory, $params{'domain_name'}, $params{'install_prefix'});
+my $root_dir_cgi = get_root_dir_cgi($params{'vhost_path'}, $params{'install_prefix'});
+my $install_prefix = get_install_prefix($params{'install_prefix'});
+
+# If installation in docroot then chenge `install_prefix` from `.` to `` 
+
+#$root_dir = $root_dir_cgi;
+
+#################################################
+#       Modification of configuration files     # 
+################################################# 
+
+my @config_files = ( "$root_dir/config/admin.php" ); 
+my %config_params = ( 
+    "PROTO" => php_quote($proto),
+    "DOMAIN_NAME" => php_quote($params{'domain_name'}),
+    "INSTALL_PREFIX" => php_quote($install_prefix),
+    "ROOT_DIR" => php_quote($root_dir),
+    "ROOT_URL" => php_quote($root_url),
+    "ROOT_URL_CGI" => php_quote($root_url_cgi),
+    "SSL_ENABLED" => php_quote($ssl_enabled),
+    "SSL_MODE" => php_quote($params{'ssl_target_directory'}),
+ );
+
+#config_file_modification("app_config.template", $root_dir, \@config_files, %config_params);
+ 
+exit 0;

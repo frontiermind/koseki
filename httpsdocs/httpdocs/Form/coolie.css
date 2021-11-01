@@ -1,0 +1,7 @@
+td			{ color: #333; font-size: 12px }
+.class_tbg  { border-top: #ccc; border-right: #ccc; border-bottom: 2px solid #ccc; border-left: #ccc }
+.class_tblr { border: solid 1px #999 }
+.class_tblb { border: solid 1px #39f }
+.class_tbw  { border-top: solid #fff; border-right: solid #fff; border-bottom: 2px solid #ccc; border-left: solid #fff }
+.back		{ font-size: 14px; color: #FFFFFF; text-decoration: none; }
+.errmsg		{ color: #FF0000 }

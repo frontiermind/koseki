@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+		<title>アクセス統計</title>
+	  <link href="coolie.css" rel="stylesheet" type="text/css">
+		<style type="text/css" media="screen">
+	<!--
+.class12  { color: #000; font-size: 12px }
+-->
+	  </style>
+	</head>
+
+	<body bgcolor="#ffffff" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+		<div align="center">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr height="5">
+					<td bgcolor="#0066cc" width="20" height="5"></td>
+					<td height="5" colspan="2" bgcolor="#0066cc">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+				</tr>
+				<tr height="5">
+					<td width="20" height="5"></td>
+					<td height="5" colspan="2">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+				</tr>
+				<tr height="30">
+					<td class="class_tbg" bgcolor="#0066cc" width="20" height="30"><img src="img/space.gif" alt="" height="20" width="20" border="0"></td>
+					<td height="30" bgcolor="#0066cc" class="class_tbg"><img src="img/acsess_top.gif" alt="" height="17" width="114" border="0"></td>
+				  <td width="150" align="right" valign="middle" class="class_tbg" bgcolor="#0066cc"><a href="admin.php" class="back">管理メニュー ▲</a><img src="img/space.gif" alt="" height="20" width="10" border="0"></td>
+				</tr>
+			</table>
+			<form method="post" action="admin.php">
+			<input type="hidden" name="mode" value="accessAnalyze">
+			<span class="class12"><select name="span" size="1">
+<?php 
+$tpl_nowY = (int) strftime("%Y");
+$tpl_nowM = (int) strftime("%m");
+$tpl_startY = $tpl_nowM == 12 ? $tpl_nowY - 1 : $tpl_nowY - 2;
+$tpl_startM = $tpl_nowM == 12 ? 1 : $tpl_nowM + 1;
+ ?>
+<?php for ($tpl_y = $tpl_nowY; $tpl_y >= $tpl_startY; $tpl_y--) { ?>
+<?php for ($tpl_m = 12; $tpl_m >= 1; $tpl_m--) { ?>
+<?php 
+if ($tpl_y == $tpl_startY and $tpl_m < $tpl_startM) {
+	continue;
+} elseif ($tpl_y == $tpl_nowY and $tpl_m > $tpl_nowM) {
+	continue;
+}
+$tpl_yyyymm = sprintf("%04d-%02d", $tpl_y, $tpl_m);
+ ?>
+					<option value="<?=$tpl_yyyymm?>" <?php if ($tpl_span == $tpl_yyyymm) { ?>selected<?php } ?>><?=$tpl_y?>年<?=$tpl_m?>月</option>
+<?php } ?>
+<?php } ?>
+				</select>　 <select name="date" size="1">
+					<option value="0" <?php if ($tpl_date == 0) { ?>selected<?php } ?>>1ヶ月</option>
+<?php for ($tpl_d = 1; $tpl_d <= 31; $tpl_d++) { ?>
+					<option value="<?php printf("%02d", $tpl_d) ?>" <?php if ($tpl_date == $tpl_d) { ?>selected<?php } ?>><?=$tpl_d?>日</option>
+<?php } ?>
+				</select> の　 <select name="group" size="1">
+					<option value="1" <?php if ($tpl_group == 1) { ?>selected<?php } ?>>日毎</option>
+					<option value="2" <?php if ($tpl_group == 2) { ?>selected<?php } ?>>時間毎</option>
+					<option value="3" <?php if ($tpl_group == 3) { ?>selected<?php } ?>>ブラウザ毎</option>
+					<option value="4" <?php if ($tpl_group == 4) { ?>selected<?php } ?>>IPアドレス毎</option>
+				</select>のアクセス数を
+				<input type="submit" name="submitButtonName" value="表示"></span>
+			</form>
+				<hr>
+<?php $tpl_row = 1 ?>
+<?php if ($tpl_group == 1) { ?>
+<?php list($tpl_y, $tpl_m) = explode("-", $tpl_tpl_span); ?>
+				<table width="560" border="0" cellspacing="2" cellpadding="0">
+					<tr align="center">
+						<td colspan="2" align="left" bgcolor="#b0e0e6">■<?=$tpl_y?>年<?=$tpl_m?>月<?php if ($tpl_date > 0) { ?><?=$tpl_date?>日<?php } else  { ?>の日別<?php } ?>アクセス数</td>
+					</tr>
+					<tr>
+						<td align="center" bgcolor="#bababa" width="60">日</td>
+						<td align="center" bgcolor="#bababa">カウント</td>
+					</tr>
+<?php foreach ($tpl_data as $tpl_key => $tpl_cnt) { ?>
+<?php if ($tpl_row % 2 == 0) { ?><?php $tpl_bgcolor = "#ededed"; ?><?php } else  { ?><?php $tpl_bgcolor = "#ffffff"; ?><?php } ?><?php $tpl_row++; ?>
+					<tr>
+						<td align="center" width="60" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_key?></td>
+						<td align="center" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_cnt?></td>
+					</tr>
+<?php } ?>
+				</table>
+<?php } elseif ($tpl_group == 2) { ?>			
+<?php list($tpl_y, $tpl_m) = explode("-", $tpl_tpl_span); ?>
+		<table width="560" border="0" cellspacing="2" cellpadding="0">
+				<tr align="center">
+					<td colspan="2" align="left" bgcolor="#b0e0e6">■<?=$tpl_y?>年<?=$tpl_m?>月<?php if ($tpl_date > 0) { ?><?=$tpl_date?>日<?php } ?>の時間別アクセス数</td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#bababa" width="60">時間</td>
+					<td align="center" bgcolor="#bababa">カウント</td>
+				</tr>
+				<tr>
+<?php foreach ($tpl_data as $tpl_key => $tpl_cnt) { ?>
+<?php if ($tpl_row % 2 == 0) { ?><?php $tpl_bgcolor = "#ededed"; ?><?php } else  { ?><?php $tpl_bgcolor = "#ffffff"; ?><?php } ?><?php $tpl_row++; ?>
+					<tr>
+						<td align="center" width="60" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_key?></td>
+						<td align="center" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_cnt?></td>
+					</tr>
+<?php } ?>
+			</table>
+<?php } elseif ($tpl_group == 3) { ?>
+			<table width="560" border="0" cellspacing="2" cellpadding="0">
+				<tr align="center">
+					<td colspan="3" align="left" bgcolor="#b0e0e6">■ブラウザ別アクセス数上位50件</td>
+				</tr>
+				<tr align="center">
+					<td bgcolor="#bababa" width="60">順位</td>
+					<td bgcolor="#bababa" width="345">ブラウザ</td>
+					<td bgcolor="#bababa">カウント</td>
+				</tr>
+<?php $tpl_rank = 1; ?>
+<?php foreach ($tpl_data as $tpl_key => $tpl_cnt) { ?>
+<?php if ($tpl_row % 2 == 0) { ?><?php $tpl_bgcolor = "#ededed"; ?><?php } else  { ?><?php $tpl_bgcolor = "#ffffff"; ?><?php } ?><?php $tpl_row++; ?>
+				<tr align="center">
+					<td width="60" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_rank?></td>
+					<td width="345" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_key?></td>
+					<td bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_cnt?></td>
+				</tr>
+<?php $tpl_rank++; ?>
+<?php } ?>
+			</table>
+			<br>
+<?php } elseif ($tpl_group == 4) { ?>
+			<table width="560" border="0" cellspacing="2" cellpadding="0">
+				<tr align="center">
+					<td colspan="3" align="left" bgcolor="#b0e0e6">■IPアドレス別アクセス数上位50件</td>
+				</tr>
+				<tr align="center">
+					<td bgcolor="#bababa" width="60">順位</td>
+					<td bgcolor="#bababa" width="345">IPアドレス</td>
+					<td bgcolor="#bababa">カウント</td>
+				</tr>
+				<tr align="center">
+<?php $tpl_rank = 1; ?>
+<?php foreach ($tpl_data as $tpl_key => $tpl_cnt) { ?>
+<?php if ($tpl_row % 2 == 0) { ?><?php $tpl_bgcolor = "#ededed"; ?><?php } else  { ?><?php $tpl_bgcolor = "#ffffff"; ?><?php } ?><?php $tpl_row++; ?>
+				<tr align="center">
+					<td width="60" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_rank?></td>
+					<td width="345" bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_key?></td>
+					<td bgcolor="<?=$tpl_bgcolor?>"><?=$tpl_cnt?></td>
+				</tr>
+<?php $tpl_rank++; ?>
+<?php } ?>
+			</table>
+<?php } ?>
+		</div>
+	</body>
+
+</html>

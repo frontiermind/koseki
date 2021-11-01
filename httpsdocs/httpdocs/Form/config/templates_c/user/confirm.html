@@ -1,0 +1,88 @@
+<?=$this->htmlspecialchars_recursive($tpl_default)?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+		<title><?=$tpl_form['title']?></title>
+		<style type="text/css" media="screen"><!--
+.name { font-size: <?=$tpl_form['name_size']?>pt; color: <?=$tpl_form['name_color']?>; }
+.comment { font-size: <?=$tpl_form['comment_size']?>pt; color: <?=$tpl_form['comment_color']?>; /* text-align: <?=$tpl_form['comment_position']?>;*/ }
+body { font-size: <?=$tpl_form['body_fontsize']?>pt; color: <?=$tpl_form['body_color']?>; background-color: <?=$tpl_form['body_bgcolor']?>; <?php if ($tpl_form['body_background']) { ?>background-image: url('img/dyn/body.<?php if ($tpl_form['body_background'] == 1) { ?>gif<?php } elseif ($tpl_form['body_background'] == 2) { ?>png<?php } elseif ($tpl_form['body_background'] == 3) { ?>jpg<?php } ?>'); <?php if ($tpl_form['body_background_fixed']) { ?>background-attachment: fixed;<?php } ?><?php } ?> }
+.query_no { font-size: <?=$tpl_form['query_no_size']?>pt; color: <?=$tpl_form['query_no_color']?>; background-color: <?=$tpl_form['query_no_bgcolor']?>; padding-left: 3px; padding-top: 3px; padding-bottom: 3px; <?php if ($tpl_form['query_no_img']) { ?>background-image: img/dyn/queryNo.<?php if ($tpl_form['query_no_img'] == 1) { ?>gif<?php } elseif ($tpl_form['query_no_img'] == 2) { ?>png<?php } elseif ($tpl_form['query_no_img'] == 3) { ?>jpg<?php } ?>; <?php } ?> }
+.query_no_pretext { font-size: <?=$tpl_form['query_no_pretext_size']?>pt; color: <?=$tpl_form['query_no_pretext_color']?>; }
+.query { font-size: <?=$tpl_form['query_size']?>pt; color: <?=$tpl_form['query_color']?>; background-color: <?=$tpl_form['query_bgcolor']?>; padding-left: 10px; padding-top: 3px; padding-bottom: 3px }
+.input { font-size: <?=$tpl_form['input_size']?>pt; color: <?=$tpl_form['input_color']?>; background-color: <?=$tpl_form['input_bgcolor']?>; padding-left: 10px; padding-top: 3px; padding-bottom: 10px }
+.precomment { font-size: <?=$tpl_form['precomment_size']?>pt; color: <?=$tpl_form['precomment_color']?>; }
+.appcomment { font-size: <?=$tpl_form['appcomment_size']?>pt; color: <?=$tpl_form['appcomment_color']?>; }
+.errmsg { color: #FF0000; }
+--></style>
+	</head>
+	<body bgcolor="#ffffff">
+	<div align="<?=$tpl_form['comment_position']?>">
+		<form method="post" action="index.php">
+			<input type="hidden" name="id" value="<?=$tpl_id?>">
+			<input type="hidden" name="mode" value="submit">
+				<?php if ($tpl_form['name_img']) { ?><img src="img/dyn/name_<?=$tpl_id?>.<?php if ($tpl_form['name_img'] == 1) { ?>gif<?php } elseif ($tpl_form['name_img'] == 2) { ?>png<?php } elseif ($tpl_form['name_img'] == 3) { ?>jpg<?php } ?>">
+				<?php } else  { ?><span class="name"><?=$tpl_form['name']?></span><?php } ?>
+			<div class="comment">入力内容の確認</div>
+			<hr width="80%">
+<?php if ($tpl_queries) { ?>
+<?php foreach ($tpl_queries as $tpl_q) { ?>
+				<table width="500" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="query_no" rowspan="2" valign="top" width="70"><?php if ($tpl_form['query_no_img']) { ?><img src="img/dyn/queryNo_<?=$tpl_id?>.<?php if ($tpl_form['query_no_img'] == 1) { ?>gif<?php } elseif ($tpl_form['query_no_img'] == 2) { ?>png<?php } elseif ($tpl_form['query_no_img'] == 3) { ?>jpg<?php } ?>"><?php } else  { ?><?php if ($tpl_form['query_no']) { ?><span class="query_no_pretext"><?=$tpl_form['query_no_pretext']?></span><?=$tpl_q['no']?><?php } ?><?php } ?></td>
+						<td class="query"><?=$tpl_q['query']?></td>
+					</tr>
+					<tr>
+						<td class="input"><br>
+<?php if (is_array($tpl_default[$tpl_q['no']])) { ?>
+<?php if ($tpl_q['qtype'] >= 12 and $tpl_q['qtype'] <=14) { ?>
+							<?php echo implode("/", $tpl_default[$tpl_q['no']]) ?>
+
+<?php } elseif ($tpl_q['qtype'] == 15 or $tpl_q['qtype'] == 16) { ?>
+							<?php echo implode("-", $tpl_default[$tpl_q['no']]) ?>
+
+<?php } else  { ?>
+<?php foreach ($tpl_default[$tpl_q['no']] as $tpl_key => $tpl_val) { ?>
+							<?=nl2br(preg_replace('/^?
+/m','&nbsp;
+',$tpl_val))?><br>
+<?php } ?>
+<?php } ?>
+<?php foreach ($tpl_default[$tpl_q['no']] as $tpl_key => $tpl_val) { ?>
+							<input type="hidden" name="answers[<?=$tpl_q['no']?>][<?=$tpl_key?>]" value="<?=$tpl_val?>">
+<?php } ?>
+<?php } else  { ?>
+							<?=nl2br(preg_replace('/^?
+/m','&nbsp;
+',$tpl_default[$tpl_q['no']]))?><input type="hidden" name="answers[<?=$tpl_q['no']?>]" value="<?=$tpl_default[$tpl_q['no']]?>"><br>
+<?php } ?>
+						</td>
+					</tr>
+				</table>
+<?php } ?>
+<?php } ?>
+			<br>
+			<br>
+			<input type="submit" value="送信">
+		</form>
+		<hr width="80%">
+		<form method="post" action="index.php">
+			<input type="hidden" name="id" value="<?=$tpl_id?>">
+			<input type="hidden" name="mode" value="edit">
+<?php if ($tpl_queries) { ?>
+<?php foreach ($tpl_queries as $tpl_q) { ?>
+<?php if (is_array($tpl_default[$tpl_q['no']])) { ?>
+<?php foreach ($tpl_default[$tpl_q['no']] as $tpl_key => $tpl_val) { ?>
+			<input type="hidden" name="answers[<?=$tpl_q['no']?>][<?=$tpl_key?>]" value="<?=$tpl_val?>">
+<?php } ?>
+<?php } else  { ?>
+			<input type="hidden" name="answers[<?=$tpl_q['no']?>]" value="<?=$tpl_default[$tpl_q['no']]?>">
+<?php } ?>
+<?php } ?>
+<?php } ?>
+			<input type="submit" value="修正">
+		</form>
+		</div>
+	</body>
+</html>

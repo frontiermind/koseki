@@ -1,0 +1,224 @@
+
+body.body2 {
+	margin: -8px;
+	height:930px;
+	margin:0px;
+	background-color: #FFFFCC;
+	color: #241a08;
+
+
+}
+
+
+div.main1 {
+	background-color :#ddf9a7;
+	width: 70%;
+	margin: 0 auto;
+}
+
+div.main2 {
+	background-color :#ddf9a7;
+	width: 70%;
+	margin: 0 auto;
+}
+
+div.main3 {
+	background-color :#ddf9a7;
+	width: 70%;
+	margin: 0 auto;
+}
+
+
+td.header {
+    width: 50%;
+    height: auto;
+}
+
+
+td.half {
+    width: 50%;
+    height: auto;
+}
+
+
+td.quarter {
+    width: 22%;
+    height: auto;
+}
+
+
+img.header {
+    width: 50%;
+    height: auto;
+}
+
+
+img.quarter {
+    width: 15%;
+    height: auto;
+    margin-top: 25px;	
+}
+
+
+img.default {
+    width: 100%;
+    height: auto;
+}
+
+p.header {
+	text-align: right;
+	vertical-align: bottom;
+	font-size: 80%;
+}
+
+
+p.big {
+	font-size: 120%;
+	font-weight: bold;
+	color: #000f84;
+}
+
+
+p.right {
+	font-size: 80%;
+	text-align: right;
+}
+
+
+p.left {
+	font-size: 90%;
+	text-align: left;
+	color: #003a12;
+}
+
+
+p.center {
+	font-size: 80%;
+	text-align: center;
+}
+
+
+table.default {
+	width: 80%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+
+table.header {
+	width: 100%;
+	margin-right : auto;
+	margin-left : auto;
+}
+
+
+table.header2 {
+	width: 100%;
+	margin-right : auto;
+	margin-left : auto;
+	background-color : #004e2d;
+	color : #fff3b8;
+}
+
+
+iframe {
+	margin-left:40px;
+}
+
+.header {
+	width: 70%;
+	margin: 0 auto;
+}
+
+
+.photo-show { 
+    height: 240px; /*表示したい大きさ*/
+    position: relative;
+}
+
+.photo-show img { 
+    animation: show 45s infinite;
+    height: 285px;
+    width: 70%;
+    opacity: 0;
+    position: absolute; /*画像を全て重ねる*/
+}
+
+/*アニメーション*/
+
+@keyframes show {
+    0% {opacity:0}	
+    50% {opacity:1}     
+    100% {opacity:0} 
+}
+
+
+/*各画像のアニメーションの開始時間をずらす*/
+
+.photo-show img:nth-of-type(1) {
+    animation-delay: 0s;
+}
+
+.photo-show img:nth-of-type(2) {
+    animation-delay: 15s;
+}
+
+.photo-show img:nth-of-type(3) {
+    animation-delay: 30s;
+}
+
+#sidebar-left {  
+  width: 15%;  
+  float: left;  
+  background-color: #b5d1b5;
+  height: 203.5%;
+}  
+
+#sidebar-right {  
+  position: fiexd;
+  width: 15%;  
+  float: right;  
+  background-color: #b5d1b5;
+  height: 203.5%;
+}  
+
+.footer {
+    position: fiexd;
+    width: 70%;
+    margin: 0 auto;
+    background-color :#004e2d;
+    font-size: 80%;
+    text-align: center;
+    color : #fff3b8;
+}
+
+img.kao {
+    width: 30%;
+    height: auto;
+    float: right;
+	margin-left: auto;
+	margin-right: 30%;
+}
+img.kao2 {
+    width: 30%;
+    height: auto;
+    float: left;
+	margin-left: 30%;
+	margin-right: auto;
+}
+
+table.default2 {
+	width: 80%;
+	color: #384f0c;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+td.text {
+width: 45%;
+white-space: nowrap;
+}
+
+.color {
+color: #77450f;
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+<title>{$form.title}</title>
+{if ($form and ($AUTHFLAG or (strtotime($form.start_stamp) <= time() and strtotime($form.end_stamp) >= time())))}
+<style type="text/css" media="screen">
+<!--
+.name { font-size: {$form.name_size}pt; color: {$form.name_color}; }
+.comment { font-size: {$form.comment_size}pt; color: {$form.comment_color}; /* text-align: {$form.comment_position}; */ }
+body { font-size: {$form.body_fontsize}pt; color: {$form.body_color}; background-color: {$form.body_bgcolor}; {if ($form.body_background)}background-image: url('img/dyn/body_{$id}.{if ($form.body_background == 1)}gif{elseif ($form.body_background == 2)}png{elseif ($form.body_background == 3)}jpg{/if}'); {if ($form.body_background_fixed)}background-attachment: fixed;{/if}{/if} }
+.query_no { font-size: {$form.query_no_size}pt; color: {$form.query_no_color}; background-color: {$form.query_no_bgcolor}; padding-left: 3px; padding-top: 3px; padding-bottom: 3px; {if ($form.query_no_img)}background-image: img/dyn/queryNo.{if ($form.query_no_img == 1)}gif{elseif ($form.query_no_img == 2)}png{elseif ($form.query_no_img == 3)}jpg{/if}; {/if} }
+.query_no_pretext { font-size: {$form.query_no_pretext_size}pt; color: {$form.query_no_pretext_color}; }
+.query { font-size: {$form.query_size}pt; color: {$form.query_color}; background-color: {$form.query_bgcolor}; padding-left: 10px; padding-top: 3px; padding-bottom: 3px }
+.input { font-size: {$form.input_size}pt; color: {$form.input_color}; background-color: {$form.input_bgcolor}; padding-left: 10px; padding-top: 3px; padding-bottom: 10px }
+.precomment { font-size: {$form.precomment_size}pt; color: {$form.precomment_color}; }
+.appcomment { font-size: {$form.appcomment_size}pt; color: {$form.appcomment_color}; }
+.errmsg { color: #FF0000; }
+-->
+</style>
+{/if}
+</head>
+<body>
+{if ($form and ($AUTHFLAG or (strtotime($form.start_stamp) <= time() and strtotime($form.end_stamp) >= time())))}
+<div align="{$form.comment_position}">
+	<form method="post" action="index.php">
+		<input type="hidden" name="id" value="{$id}">
+		<input type="hidden" name="mode" value="{if ($form.confirm)}confirm{else}submit{/if}">
+		{if ($form.name_img)}<img src="img/dyn/name_{$id}.{if ($form.name_img == 1)}gif{elseif ($form.name_img == 2)}png{elseif ($form.name_img == 3)}jpg{/if}"> {else}<span class="name">{$form.name}</span>{/if}
+		<div class="comment">{nl2br($form.comment)}</div>
+		<hr width="80%">
+		{if ($queries)} {foreach ($queries as $q)} {if (!isset($default[$q.no]))}{php}$default[$q.no] = htmlspecialchars($q.selected){/php}{/if}
+		<table width="500" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="query_no" rowspan="2" valign="top" width="70">{if ($form.query_no_img)}<img src="img/dyn/queryNo_{$id}.{if ($form.query_no_img == 1)}gif{elseif ($form.query_no_img == 2)}png{elseif ($form.query_no_img == 3)}jpg{/if}">{else}{if ($form.query_no)}<span class="query_no_pretext">{$form.query_no_pretext}</span>{$q.no}{/if}{/if}</td>
+				<td class="query">{$q.query}{if ($q.required)}<span style="font-size: {$q.required_text_size}pt; color: {$q.required_text_color}">　{$q.required_text}</span><br>
+					{/if}</td>
+			</tr>
+			<tr>
+				<td class="input">
+{if ($q.precomment)}
+					<span class="precomment">{$q.precomment}</span><br>
+{/if}
+					<br>
+{* エラーメッセージ *}{if ($err[$q.no] & 1)}
+					<span class="errmsg">*{if ($q.qtype == 7 or $q.qtype == 8 or $q.qtype == 10 or $q.qtype == 12 or $q.qtype == 13 or $q.qtype == 15 or $q.qtype == 16 or $q.qtype == 21)}入力{else}選択{/if}してください</span><br>
+{elseif ($err[$q.no] & 2)}
+					<span class="errmsg">*正しく入力してください</span><br>
+{elseif ($err[$q.no] & 4)}
+					<span class="errmsg">*携帯電話のメールアドレスを入力してください</span><br>
+{elseif ($err[$q.no] & 8)}
+					<span class="errmsg">*携帯電話以外のメールアドレスを入力してください</span><br>
+{elseif ($err[$q.no] & 16)}
+					<span class="errmsg">*半角英数字で入力してください</span><br>
+{elseif ($err[$q.no] & 32)}
+					<span class="errmsg">*ひらがなで入力してください</span><br>
+{elseif ($err[$q.no] & 64)}
+					<span class="errmsg">*カタカナで入力してください</span><br>
+{elseif ($err[$q.no] & 128)}
+					<span class="errmsg">*正しく入力してください</span><br>
+{elseif ($err[$q.no] & 256)}
+					<span class="errmsg">*正しく入力してください</span><br>
+{elseif ($err[$q.no] & 512)}
+					<span class="errmsg">*選択できるのは{$q.max_limit}個までです</span><br>
+{elseif ($err[$q.no] & 1024)}
+					<span class="errmsg">*{$q.min_limit}個以上選択してください</span><br>
+{/if}
+{* 選択回答 *}{if ($q.qtype >= 1 and $q.qtype <= 6)}
+{* 選択肢リスト作成 *}
+{php}$answerList = preg_split('/[\r\n]+/', $q["answer_list"]);{/php}
+{* select *}{if ($q.qtype >= 5)}
+					<select name="answers[{$q.no}]{if ($q.qtype == 6)}[]{/if}" size="{$q.input_rows}" {if ($q.qtype == 6)}multiple{/if}>
+{/if}
+{if ($answerList)}
+{foreach ($answerList as $ans)}{php}$qtans = htmlspecialchars($ans){/php}
+{* radio/checkbox *}{if ($q.qtype <= 4)}
+					<input type="{if ($q.qtype <= 2)}radio{else}checkbox{/if}" name="answers[{$q.no}]{if ($q.qtype >= 3)}[]{/if}" value="{$qtans}" {if ($default[$q.no] == $ans or (is_array($default[$q.no]) and in_array($ans, $default[$q.no])))}checked{/if}>
+						{$ans}{if ($q.qtype % 2 == 1)}<br>{else}　{/if}
+
+{* select/option *}{else}
+						<option value="{$qtans}" {if ($default[$q.no] == $ans or (is_array($default[$q.no]) and in_array($ans, $default[$q.no])))}selected{/if}>{$qtans}</option>
+{/if}
+{/foreach}
+{/if}
+{* select *}{if ($q.qtype >= 5)}
+					</select>
+{/if}
+{if ($q.qtype != 1 and $q.qtype != 3)}
+					<br>
+{/if}
+{* text *}{elseif ($q.qtype == 7)}
+					<input type="text" name="answers[{$q.no}]" size="{$q.input_cols}" value="{htmlspchars($default[$q.no])}">
+					<br>
+{* textarea *}{elseif ($q.qtype == 8)}
+					<textarea name="answers[{$q.no}]" cols="{$q.input_cols}" rows="{$q.input_rows}">{htmlspchars($default[$q.no])}</textarea>
+					<br>
+{* 都道府県 *}{elseif ($q.qtype == 9)}{php}$area = include "config/masters/area.php"; mb_convert_variables("SJIS", "EUC-JP", $area){/php}
+					<select name="answers[{$q.no}]">
+{foreach ($area as $v)}
+						<option value="{$v}" {if ($default[$q.no] == $v)}selected{/if}>{$v}</option>
+{/foreach}
+					</select>
+					<br>
+{* 年月日 *}{elseif ($q.qtype >= 10 and $q.qtype <= 14)}
+{* 年 *}{if ($q.qtype == 10 or $q.qtype == 12 or $q.qtype == 13)}
+					<input type="text" name="answers[{$q.no}][0]" size="6" maxlength="4" value="{htmlspchars($default[$q.no][0])}">年　
+{/if}
+{* 月 *}{if ($q.qtype >= 11 and $q.qtype <= 14)}
+					<select name="answers[{$q.no}][1]">
+						<option value="" {if ($default[$q.no][1] == "")}selected{/if}>　</option>
+{for ($i = 1; $i <= 12; $i++)}
+						<option value="{$i}" {if ($default[$q.no][1] == $i)}selected{/if}>{$i}</option>
+{/for}
+					</select>月　
+{/if}
+{* 日 *}{if ($q.qtype >= 13 and $q.qtype <= 14)}
+					<select name="answers[{$q.no}][2]">
+						<option value="" {if ($default[$q.no][2] == "")}selected{/if}>　</option>
+{for ($i = 1; $i <= 31; $i++)}
+						<option value="{$i}" {if ($default[$q.no][2] == $i)}selected{/if}>{$i}</option>
+{/for}
+					</select>日
+{/if}
+					<br>
+{* 郵便番号 *}{elseif ($q.qtype == 15)}
+					<input type="text" name="answers[{$q.no}][0]" size="5" maxlength="3" value="{htmlspchars($default[$q.no][0])}">-
+					<input type="text" name="answers[{$q.no}][1]" size="6" maxlength="4" value="{htmlspchars($default[$q.no][1])}"><br>
+{* TEL *}{elseif ($q.qtype == 16)}
+					<input type="text" name="answers[{$q.no}][0]" size="5" value="{htmlspchars($default[$q.no][0])}">-
+					<input type="text" name="answers[{$q.no}][1]" size="5" value="{htmlspchars($default[$q.no][1])}">-
+					<input type="text" name="answers[{$q.no}][2]" size="5" value="{htmlspchars($default[$q.no][2])}"><br>
+{* 曜日 *}{elseif ($q.qtype == 17)}
+					<select name="answers[{$q.no}]">
+						<option value="" {if ($default[$q.no] == "")}selected{/if}>　</option>
+{foreach (array("月", "火", "水", "木", "金", "土", "日") as $i)}
+						<option value="{$i}" {if ($default[$q.no] == $i)}selected{/if}>{$i}</option>
+{/foreach}
+					</select>曜<br>
+{* 性別 *}{elseif ($q.qtype == 18)}
+					<input type="radio" name="answers[{$q.no}]" value="男" {if ($default[$q.no] == "男")}checked{/if}>男　
+					<input type="radio" name="answers[{$q.no}]" value="女" {if ($default[$q.no] == "女")}checked{/if}>女{if (!$q.required)}　
+					<input type="radio" name="answers[{$q.no}]" value="秘密" {if ($default[$q.no] == "秘密")}checked{/if}>秘密{/if}
+					<br>
+{* 星座 *}{elseif ($q.qtype == 19)}
+					<select name="answers[{$q.no}]">
+						<option value="" {if ($default[$q.no] == "")}selected{/if}>　</option>
+{foreach (array("牡羊座", "牡牛座", "双子座", "蟹座", "獅子座", "乙女座", "天秤座", "蠍座", "射手座", "山羊座", "水瓶座", "魚座") as $i)}
+						<option value="{$i}" {if ($default[$q.no] == $i)}selected{/if}>{$i}</option>
+{/foreach}
+					</select>
+					<br>
+{* 血液型 *}{elseif ($q.qtype == 20)}
+					<input type="radio" name="answers[{$q.no}]" value="A型" {if ($default[$q.no] == "A型")}checked{/if}>A型　
+					<input type="radio" name="answers[{$q.no}]" value="B型" {if ($default[$q.no] == "B型")}checked{/if}>B型　
+					<input type="radio" name="answers[{$q.no}]" value="O型" {if ($default[$q.no] == "O型")}checked{/if}>O型　
+					<input type="radio" name="answers[{$q.no}]" value="AB型" {if ($default[$q.no] == "AB型")}checked{/if}>AB型{if (!$q.required)}　
+					<input type="radio" name="answers[{$q.no}]" value="秘密" {if ($default[$q.no] == "秘密")}checked{/if}>秘密{/if}<br>
+{* メール *}{elseif ($q.qtype == 21)}
+					<input type="text" name="answers[{$q.no}]" value="{htmlspchars($default[$q.no])}" size="40">
+					<br>
+{/if}
+					<br>
+{if ($q.appcomment)}
+					<span class="appcomment">{$q.appcomment}</span><br>
+{/if}
+				</td>
+			</tr>
+		</table>
+{/foreach}
+		<br>
+{if ($form.submit == 2)}
+		<input type="image" src="img/dyn/submit_{$id}.{if ($form.submit_img == 1)}gif{elseif ($form.submit_img == 2)}png{elseif ($form.submit_img == 3)}jpg{/if}" name="submit" value="{htmlspchars($form.submit_caption)}" alt="{htmlspchars($form.submit_caption)}" border="0">
+{elseif ($form.submit == 1)}
+		<input type="submit" name="submit" value="{htmlspchars($form.submit_caption)}">
+{/if}
+{else}
+		<p>（質問が設定されていません）</p>
+{/if}
+	</form>
+	<hr width="80%">
+{if ($form.return == 1)}
+	<a href="{$form.return_url}">{$form.return_caption}</a> {elseif ($form.return == 2)}<a href="{$form.return_url}"><img src="img/dyn/return_{$id}.{if ($form.return_img == 1)}gif{elseif ($form.return_img == 2)}png{elseif ($form.return_img == 3)}jpg{/if}" alt="{htmlspchars($form.return_caption)}" title="{htmlspchars($form.return_caption)}" border="0"></a>{/if} </div>
+
+{else}
+<div align=center> 
+	<table cellspacing=5 cellpadding=5 width="600" border=0> 
+		<tr> 
+			<td align="center"><hr> 
+				<font color="#6E6E6E" size="2">指定されたURLのファイルは公開されていません。</font>
+				<hr></td> 
+		</tr> 
+		<tr> 
+			<td align=left><p><font color="#666666" size=2>■原因として以下のことが考えられます：</font></p> 
+				<ul> 
+					<li><font color="#666666" size=2> 管理者の設定した公開日時が来ていない。</font></li> 
+					<li><font color="#666666" size=2> 管理者の設定した公開日時が終了した。</font></li> 
+					<li><font color="#666666" size=2> 入力したURLに間違いがある。 </font> </li> 
+				</ul> 
+				<p><font color="#666666" size=2>■対処法：</font></p> 
+				<ul> 
+					<li><font color="#666666" size=2>公開日時をサイト管理者にお問い合わせください。</font> </li> 
+					<li><font color="#666666" size=2>入力したURLに間違いがないか再度確認してください。</font></li> 
+				</ul></td> 
+		</tr> 
+	</table> 
+</div> 
+{/if}
+</body>
+</html>

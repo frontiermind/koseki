@@ -1,0 +1,233 @@
+<?=$this->htmlspecialchars_recursive($tpl_default)?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+	<meta http-equiv="content-type" content="text/html;charset=Shift_JIS">
+	<title>フォーム項目設定</title>
+	<link href="coolie.css" rel="stylesheet" type="text/css">
+	<style type="text/css" media="screen">
+	<!--
+.class12  { color: white; font-weight: 500; font-size: 12px }
+.class12r { color: #ff4500; font-size: 12px }
+-->
+	</style>
+	<script language="JavaScript" type="text/javascript" src="coolie.js"></script>
+	</head>
+
+	<body bgcolor="white" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+	<div align="left">
+			<form method="post" action="admin.php" name="editQuery">
+			<input type="hidden" name="mode" value="queryEdit">
+			<input type="hidden" name="id" value="<?=$tpl_id?>">
+			<input type="hidden" name="no" value="<?=$tpl_no?>">
+			<input type="hidden" name="config[qtype]" value="<?=$tpl_default['qtype']?>">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="class" bgcolor="#0066cc" width="20"></td>
+					<td class="class" bgcolor="#0066cc" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="#0066cc" width="18"></td>
+					<td class="class" bgcolor="#0066cc"></td>
+				</tr>
+				<tr>
+					<td class="class" bgcolor="white" width="20"></td>
+					<td class="class" bgcolor="white" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="white" width="18"></td>
+					<td class="class" bgcolor="white"></td>
+				</tr>
+				<tr height="14">
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="20" height="28"><img src="img/space.gif" alt="" height="20" width="20" border="0"></td>
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="248" height="28"><img src="img/setei.gif" alt="" height="17" width="114" border="0"></td>
+					<td rowspan="2" valign="top" width="18" height="28"><img src="img/bar_p.gif" alt="" height="30" width="18" border="0"></td>
+					<td class="class_tbg" bgcolor="#0066cc" height="14">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="12" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr height="2">
+					<td bgcolor="white" height="2"></td>
+				</tr>
+				<tr>
+					<td width="20"></td>
+					<td colspan="3">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="1" border="0"></div>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" background="img/back.jpg">
+				<tr>
+					<td class="class_tbg"><img src="img/koumoku.jpg" alt="" height="30" width="140" border="0"></td>
+				  <td width="400" align="right" valign="middle" class="class_tbg" background="img/back.jpg" ><a href="admin.php" class="back">管理メニュー</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=formList" class="back">フォーム一覧</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=formEdit&id=<?=$tpl_id?>" class="back">フォーム設定</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=queryList&id=<?=$tpl_id?>" class="back">項目一覧 ▲</a><img src="img/space.gif" alt="" height="20" width="10" border="0"></td>
+				</tr>
+			</table>
+			<table width="680" border="0" cellspacing="5" cellpadding="0" background="(EmptyReference!)">
+				<tr height="20">
+					<td colspan="3" align="left" height="20">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="20" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■質問タイプ</td>
+					<td align="left" width="20"></td>
+					<td align="left"><?php $tpl_qTypeStr =include("config/masters/queryType.php"); echo mb_convert_encoding($tpl_qTypeStr[$tpl_default['qtype']], "SJIS", "EUC-JP") ?></td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■質問番号</td>
+					<td align="left" width="20"><img src="img/space.gif" alt="" height="1" width="20" border="0"></td>
+					<td align="left"><?php if ($tpl_err['no']['empty']) { ?><span class="errmsg">*入力してください</span><br>
+						<?php } elseif ($tpl_err['no']['integer']) { ?><span class="errmsg">*1以上の数字を入力してください</span><br><?php } ?>
+						<input type="text" name="config[no]" value="<?=$tpl_default['no']?>" size="4" border="0"></td>
+				</tr>
+				<input type="hidden" name="config[position]" value="center">
+<!--
+				<tr>
+					<td width="250" align="left" valign="top">■表示位置</td>
+					<td align="left" width="20"></td>
+					<td align="left"><?php if ($tpl_err['position']['empty']) { ?><span class="errmsg">*選択してください</span><br><?php } ?>
+						<input type="radio" name="config[position]" value="left" border="0" <?php if ($tpl_default['position'] == 'left') { ?>checked<?php } ?>>左　<input type="radio" name="config[position]" value="center" border="0" <?php if ($tpl_default['position'] == 'center') { ?>checked<?php } ?>>中央　<input type="radio" name="config[position]" value="right" border="0" <?php if ($tpl_default['position'] == 'right') { ?>checked<?php } ?>>右</td>
+				</tr>
+-->
+				<tr>
+					<td width="250" align="left" valign="top">■質問文</td>
+					<td align="left" width="20"></td>
+					<td align="left"><?php if ($tpl_err['query']['empty']) { ?><span class="errmsg">*入力してください</span><br><?php } ?>
+						<input type="text" name="config[query]" value="<?=$tpl_default['query']?>" size="50" border="0"></td>
+				</tr>
+<?php if ($tpl_default['qtype'] >= 1 and $tpl_default['qtype'] <= 6) { ?>
+				<tr valign="top" height="20">
+					<td align="left" valign="top" width="250" height="20">■<?php if ($tpl_default['qtype'] <= 2) { ?>ラジオボタン<?php } elseif ($tpl_default['qtype'] <= 4) { ?>チェックボックス<?php } elseif ($tpl_default['qtype'] <= 6) { ?>リスト<?php } ?>項目設定</td>
+					<td align="left" width="20" height="20"></td>
+					<td height="20"><?php if ($tpl_err['answer_list']['empty']) { ?><span class="errmsg">*入力してください</span><br><?php } ?>
+						<textarea name="config[answer_list]" rows="5" cols="30"><?=$tpl_default['answer_list']?></textarea>※選択項目を入力（1行1項目）</td>
+				</tr>
+<?php } else  { ?>
+				<input type="hidden" name="config[answer_list]" value="NULL">
+<?php } ?>
+<?php if ($tpl_default['qtype'] >= 1 and $tpl_default['qtype'] <= 8) { ?>
+				<tr>
+					<td width="250" align="left" valign="top">■デフォルト値</td>
+					<!--この項目はラジオ、チェックボックス、リストボックス、テキストフィールドの時のみ表示-->
+					<td align="left" width="20"></td>
+					<td align="left"><input type="text" name="config[selected]" value="<?=$tpl_default['selected']?>" size="30" border="0"><?php if ($tpl_default['qtype'] <= 6) { ?>※選択項目のデフォルトを入力<?php } ?></td>
+				</tr>
+<?php } ?>
+<?php if ($tpl_default['qtype'] == 3 or $tpl_default['qtype'] == 4 or $tpl_default['qtype'] == 6) { ?>
+				<tr>
+					<td width="250" align="left" valign="top">■選択可能数</td>
+					<!--この項目はチェックボックス、複数選択リストボックスの時のみ表示-->
+					<td align="left" width="20"></td>
+					<td align="left"><?php if ($tpl_err['min_limit']['integer'] or $tpl_err['max_limit']['integer']) { ?><span class="errmsg">*それぞれ1以上の数字を入力してください</span><br><?php } ?>
+						<input type="text" name="config[min_limit]" value="<?=$tpl_default['min_limit']?>" size="4" border="0"> 個以上 <input type="text" name="config[max_limit]" value="<?=$tpl_default['max_limit']?>" size="4" border="0"> 個以下</td>
+				</tr>
+<?php } ?>
+<?php if ($tpl_default['qtype'] == 7 or $tpl_default['qtype'] == 8 or $tpl_default['qtype'] == 21) { ?>
+				<tr>
+					<td width="250" align="left" valign="top">■フィールド表示桁数</td>
+					<!--この項目はテキストフィールド、テキストボックス、メールアドレスの時のみ表示-->
+					<td align="left" width="20"></td>
+					<td><?php if ($tpl_err['input_cols']['empty']) { ?><span class="errmsg">*入力してください</span><br>
+						<?php } elseif ($tpl_err['input_cols']['integer']) { ?><span class="errmsg">*1以上の数字を入力してください</span><br><?php } ?>
+						<input type="text" name="config[input_cols]" value="<?=$tpl_default['input_cols']?>" size="4" border="0"></td>
+				</tr>
+<?php } else  { ?>
+				<input type="hidden" name="config[input_cols]" value="1">
+<?php } ?>
+<?php if (($tpl_default['qtype'] == 5) || ($tpl_default['qtype'] == 6) || ($tpl_default['qtype'] == 8)) { ?>
+				<tr>
+					<td width="250" align="left" valign="top">■フィールド表示行数</td>
+					<!--この項目はリスト、テキストボックスの時のみ表示-->
+					<td align="left" width="20"></td>
+					<td align="left"><?php if ($tpl_err['input_rows']['empty']) { ?><span class="errmsg">*入力してください</span><br>
+						<?php } elseif ($tpl_err['input_rows']['integer']) { ?><span class="errmsg">*1以上の数字を入力してください</span><br><?php } ?>
+						<input type="text" name="config[input_rows]" value="<?=$tpl_default['input_rows']?>" size="4" border="0"></td>
+				</tr>
+<?php } else  { ?>
+				<input type="hidden" name="config[input_rows]" value="1">
+<?php } ?>
+<?php if ($tpl_default['qtype'] == 7 or $tpl_default['qtype'] == 8 or $tpl_default['qtype'] == 21) { ?>
+				<tr>
+					<td width="250" align="left" valign="top">■入力制限</td>
+					<!--この項目はテキストフィールド、テキストボックス、メールアドレスの時のみ表示-->
+					<td align="left" width="20"></td>
+					<td align="left">
+						<select name="config[input_type]" size="1">
+<?php if ($tpl_default['qtype'] == 7 or $tpl_default['qtype'] == 8) { ?>
+							<option value="0" <?php if (!$tpl_default['input_type']) { ?>selected<?php } ?>>制限なし</option>
+							<option value="1" <?php if ($tpl_default['input_type'] == 1) { ?>selected<?php } ?>>英数字</option>
+							<option value="2" <?php if ($tpl_default['input_type'] == 2) { ?>selected<?php } ?>>ひらがな</option>
+							<option value="3" <?php if ($tpl_default['input_type'] == 3) { ?>selected<?php } ?>>カタカナ</option>
+							<option value="4" <?php if ($tpl_default['input_type'] == 4) { ?>selected<?php } ?>>正規表現</option>
+<?php } elseif ($tpl_default['qtype'] == 21) { ?>
+							<option value="5" <?php if ($tpl_default['input_type'] == 5) { ?>selected<?php } ?>>制限なし</option>
+							<option value="6" <?php if ($tpl_default['input_type'] == 6) { ?>selected<?php } ?>>携帯電話のみ</option>
+							<option value="7" <?php if ($tpl_default['input_type'] == 7) { ?>selected<?php } ?>>携帯以外</option>
+<?php } ?>
+						</select><br>
+						<?php if ($tpl_err['input_regex']['empty']) { ?><span class="errmsg">*正規表現を入力してください</span><br><?php } ?>
+						<?php if ($tpl_default['qtype'] == 7 or $tpl_default['qtype'] == 8) { ?>*<a href="http://jp.php.net/manual/ja/pcre.pattern.syntax.php" target="_blank">正規表現（Perl互換）設定</a>&gt;&gt;
+						<input type="text" name="config[input_regex]" value="<?=$tpl_default['input_regex']?>" size="30" border="0"><?php } ?>
+					</td>
+				</tr>
+<?php } ?>
+				<tr>
+					<td width="250" align="left" valign="top">■項目前コメント</td>
+					<td align="left" width="20"></td>
+					<td align="left"><input type="text" name="config[precomment]" value="<?=$tpl_default['precomment']?>" size="30" border="0">　
+					※質問文の下に表示されます</td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■項目後コメント</td>
+					<td align="left" width="20"></td>
+					<td align="left"><input type="text" name="config[appcomment]" value="<?=$tpl_default['appcomment']?>" size="30" border="0">　
+					※項目の下に表示されます</td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■必須指定</td>
+					<td align="left" width="20"></td>
+					<td align="left"><input type="hidden" name="config[required]" value="0"><input type="checkbox" name="config[required]" value="1" border="0" <?php if ($tpl_default['required']) { ?>checked<?php } ?>>必須</td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■必須表示文</td>
+					<td align="left" width="20"></td>
+					<td align="left"><?php if ($tpl_err['required_text']['empty']) { ?><span class="errmsg">*入力してください</span><br><?php } ?>
+						<input type="text" name="config[required_text]" value="<?=$tpl_default['required_text']?>" size="20" border="0"></td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■必須表示文字色</td>
+					<td align="left" width="20"></td>
+					<td><?php if ($tpl_err['required_text_color']['empty']) { ?><span class="errmsg">*入力してください</span><br>
+						<?php } elseif ($tpl_err['required_text_color']['color']) { ?><span class="errmsg">*正しく指定してください</span><br><?php } ?>
+						<input type="text" name="config[required_text_color]" id="required_text_color" size="20" border="0" value="<?=$tpl_default['required_text_color']?>">
+						<script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editQuery.required_text_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td width="250" align="left" valign="top">■必須表示文字サイズ</td>
+					<td align="left" width="20"></td>
+					<td><?php if ($tpl_err['required_text_size']['empty']) { ?><span class="errmsg">*入力してください</span><br>
+						<?php } elseif ($tpl_err['required_text_size']['numeric']) { ?><span class="errmsg">*数字で入力してください</span><br><?php } ?>
+						<input type="text" name="config[required_text_size]" value="<?=$tpl_default['required_text_size']?>" size="4" border="0"> pt</td>
+				</tr>
+				
+<?php if ($tpl_default['qtype'] == 21) { ?>
+				<tr>
+					<td width="250" align="left" valign="top">■回答送信先指定</td>
+					<td align="left" width="20"></td>
+					<td align="left"><input type="hidden" name="config[send_mail_address]" value="0"><input type="checkbox" name="config[send_mail_address]" value="1" <?php if ($tpl_default['send_mail_address']) { ?>checked<?php } ?>> 指定する<br>
+					<span class="errmsg">管理者だけでなく回答者にも確認メールを送信したい場合はチェックを入れてください</span></td>
+				</tr>
+<?php } ?>
+			</table>
+				<input type="submit" name="submitButtonName" value="設定">
+			</form>
+	</div>
+<?php require_once "colorPicker.php" ?>
+	</body>
+
+</html>

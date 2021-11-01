@@ -1,0 +1,85 @@
+#!/bin/sh
+read_params()
+{
+var=`cat | awk '{
+eqpos=index($0, "=");
+if (eqpos>1) {
+var=substr($0, 1, eqpos-1);
+val=substr($0, eqpos+1);
+tmp="[\x5c\x5c]";
+tmp2="\x5c\x5c\x5c\x5c";
+gsub(tmp,tmp2,val);
+tmp2="\x5c\x5c\x5c\x22";
+gsub("\"",tmp2,val);
+print var "=\"" val "\"";
+};
+}'`
+eval $var
+# now we have full set of parameters, stored in variables
+# readconf
+while read var val; do
+case "$var" in
+[A-Z]*) eval "$var"='"$val"';;
+esac;
+done </etc/psa/psa.conf
+}
+check_parameter()
+{
+local pname="$1"
+if eval "test -z \"\$$pname\"";then
+scrname="`basename "$0"`"
+echo "$scrname: no $pname parameter specified for application"
+exit 1
+fi
+}
+check_params()
+{
+for pname in vhost_path domain_name; do
+check_parameter "$pname"
+done
+}
+parse_params()
+{
+if [ "X${ssl_target_directory}" = "Xtrue" ]; then
+documents_directory="httpsdocs"
+proto="https"
+else
+documents_directory="httpdocs"
+proto="http"
+fi
+apps_dir=`echo $0 | cut -f7 -d "/"`
+root_d="${vhost_path}/${documents_directory}/${apps_dir}"
+}
+parse_config()
+{
+var=`awk '{
+split ($0, string, ";")
+for (str in string) {
+sb=string[str]
+if (index(sb, "\\\$") != NULL){
+gsub(" ", "", sb);
+gsub(".*\\\\$", "" ,sb)
+print sb
+}
+}
+}' $config_file`
+eval $var
+}
+remove_files()
+{
+#ここから下編集
+cd $root_d
+rm -fr dat
+rm -fr img
+rm -fr config
+#rm -fr $root_d
+}
+
+#main section
+read_params
+check_params
+parse_params
+parse_config
+remove_files
+
+exit 0

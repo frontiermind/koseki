@@ -1,0 +1,84 @@
+{htmlspchars_recursive($default)}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+		<title>{$form.title}</title>
+		<style type="text/css" media="screen"><!--
+.name { font-size: {$form.name_size}pt; color: {$form.name_color}; }
+.comment { font-size: {$form.comment_size}pt; color: {$form.comment_color}; /* text-align: {$form.comment_position};*/ }
+body { font-size: {$form.body_fontsize}pt; color: {$form.body_color}; background-color: {$form.body_bgcolor}; {if ($form.body_background)}background-image: url('img/dyn/body.{if ($form.body_background == 1)}gif{elseif ($form.body_background == 2)}png{elseif ($form.body_background == 3)}jpg{/if}'); {if ($form.body_background_fixed)}background-attachment: fixed;{/if}{/if} }
+.query_no { font-size: {$form.query_no_size}pt; color: {$form.query_no_color}; background-color: {$form.query_no_bgcolor}; padding-left: 3px; padding-top: 3px; padding-bottom: 3px; {if ($form.query_no_img)}background-image: img/dyn/queryNo.{if ($form.query_no_img == 1)}gif{elseif ($form.query_no_img == 2)}png{elseif ($form.query_no_img == 3)}jpg{/if}; {/if} }
+.query_no_pretext { font-size: {$form.query_no_pretext_size}pt; color: {$form.query_no_pretext_color}; }
+.query { font-size: {$form.query_size}pt; color: {$form.query_color}; background-color: {$form.query_bgcolor}; padding-left: 10px; padding-top: 3px; padding-bottom: 3px }
+.input { font-size: {$form.input_size}pt; color: {$form.input_color}; background-color: {$form.input_bgcolor}; padding-left: 10px; padding-top: 3px; padding-bottom: 10px }
+.precomment { font-size: {$form.precomment_size}pt; color: {$form.precomment_color}; }
+.appcomment { font-size: {$form.appcomment_size}pt; color: {$form.appcomment_color}; }
+.errmsg { color: #FF0000; }
+--></style>
+	</head>
+	<body bgcolor="#ffffff">
+	<div align="{$form.comment_position}">
+		<form method="post" action="index.php">
+			<input type="hidden" name="id" value="{$id}">
+			<input type="hidden" name="mode" value="submit">
+				{if ($form.name_img)}<img src="img/dyn/name_{$id}.{if ($form.name_img == 1)}gif{elseif ($form.name_img == 2)}png{elseif ($form.name_img == 3)}jpg{/if}">
+				{else}<span class="name">{$form.name}</span>{/if}
+			<div class="comment">入力内容の確認</div>
+			<hr width="80%">
+{if ($queries)}
+{foreach ($queries as $q)}
+				<table width="500" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td class="query_no" rowspan="2" valign="top" width="70">{if ($form.query_no_img)}<img src="img/dyn/queryNo_{$id}.{if ($form.query_no_img == 1)}gif{elseif ($form.query_no_img == 2)}png{elseif ($form.query_no_img == 3)}jpg{/if}">{else}{if ($form.query_no)}<span class="query_no_pretext">{$form.query_no_pretext}</span>{$q.no}{/if}{/if}</td>
+						<td class="query">{$q.query}</td>
+					</tr>
+					<tr>
+						<td class="input"><br>
+{if (is_array($default[$q.no]))}
+{if ($q.qtype >= 12 and $q.qtype <=14)}
+							{php}echo implode("/", $default[$q.no]){/php}
+
+{elseif ($q.qtype == 15 or $q.qtype == 16)}
+							{php}echo implode("-", $default[$q.no]){/php}
+
+{else}
+{foreach ($default[$q.no] as $key => $val)}
+							{nl2br($val)}<br>
+{/foreach}
+{/if}
+{foreach ($default[$q.no] as $key => $val)}
+							<input type="hidden" name="answers[{$q.no}][{$key}]" value="{$val}">
+{/foreach}
+{else}
+							{nl2br($default[$q.no])}<input type="hidden" name="answers[{$q.no}]" value="{$default[$q.no]}"><br>
+{/if}
+						</td>
+					</tr>
+				</table>
+{/foreach}
+{/if}
+			<br>
+			<br>
+			<input type="submit" value="送信">
+		</form>
+		<hr width="80%">
+		<form method="post" action="index.php">
+			<input type="hidden" name="id" value="{$id}">
+			<input type="hidden" name="mode" value="edit">
+{if ($queries)}
+{foreach ($queries as $q)}
+{if (is_array($default[$q.no]))}
+{foreach ($default[$q.no] as $key => $val)}
+			<input type="hidden" name="answers[{$q.no}][{$key}]" value="{$val}">
+{/foreach}
+{else}
+			<input type="hidden" name="answers[{$q.no}]" value="{$default[$q.no]}">
+{/if}
+{/foreach}
+{/if}
+			<input type="submit" value="修正">
+		</form>
+		</div>
+	</body>
+</html>

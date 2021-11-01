@@ -1,0 +1,12 @@
+{foreach ($mail_queries as $q)}
+Å§{$q.no} {$q.query}
+
+	{if ($q.qtype == COOLIE_QUERYTYPE_DATE_YM || $q.qtype == COOLIE_QUERYTYPE_DATE_YMD || $q.qtype == COOLIE_QUERYTYPE_DATE_MD)}
+{php}echo implode("/", $mail_answers[$q.no]){/php}
+	{elseif ($q.qtype == COOLIE_QUERYTYPE_ZIPCODE || $q.qtype == COOLIE_QUERYTYPE_TEL)}
+{php}echo implode("-", $mail_answers[$q.no]){/php}
+	{else}
+{php}echo implode(" / ", (array)$mail_answers[$q.no]){/php}
+  {/if}
+
+{/foreach}

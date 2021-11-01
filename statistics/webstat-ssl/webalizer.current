@@ -1,0 +1,480 @@
+# Webalizer V2.01-10 Incremental Data - 10/25/2021 22:42:48
+2021 10 25 22 42 48
+260 183 98 16 3 11 6188536 142 138 0
+4 2 15 1 25
+10 6 63933 4 5 5
+32 24 3085227 19 8 8
+8 8 64965 3 7 7
+14 8 81012 6 7 7
+7 7 58505 5 6 6
+20 10 128518 6 8 8
+7 7 60127 5 6 5
+7 3 29540 3 2 2
+15 10 107122 10 8 7
+5 5 46083 4 4 4
+7 7 60127 6 6 6
+11 6 83338 5 4 4
+8 7 63661 6 6 5
+9 7 64481 5 6 5
+9 6 63707 4 5 5
+18 11 1630505 10 9 9
+11 8 77205 5 7 7
+6 4 32426 4 4 4
+2 2 12952 1 2 2
+11 7 87388 5 5 5
+9 7 65541 6 6 6
+13 7 74573 7 7 7
+12 7 75581 8 6 6
+5 5 32412 3 5 5
+4 4 39607 4 3 3
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+0 0 0 0 0 0
+3 3 19428 3
+11 6 70181 5
+14 8 69518 7
+7 4 35944 4
+5 3 25388 3
+6 4 31864 4
+13 7 63244 7
+7 3 30190 5
+1 1 6492 1
+16 10 102911 9
+6 4 32410 4
+12 8 80707 7
+7 4 50723 3
+4 2 18912 2
+5 2 37771 1
+1 1 6476 1
+12 5 54340 5
+24 23 3030493 9
+13 10 91763 9
+3 3 17620 2
+9 7 64465 6
+7 5 36023 5
+58 50 2083572 33
+16 10 128101 7
+0
+0
+0
+183
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+2
+0
+0
+0
+0
+0
+0
+75
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+0
+# -urls- 
+/note2.jpg
+1 1 0 54810 0 0
+/
+0 142 0 927703 138 78
+/access_tab2.png
+1 1 0 3595 0 0
+/top.jpg
+1 1 0 1520487 0 0
+/bengoshi_tab2.png
+1 1 0 4523 0 0
+/akusesu1.jpg
+1 1 0 4939 0 0
+/tablet.jpg
+1 1 0 167277 0 0
+/TopName2.png
+1 1 0 6667 0 0
+/koseki_top.jpg
+1 1 0 160696 0 0
+/css/style.css
+0 3 0 14020 0 0
+/bengosi1.jpg
+1 1 0 5659 0 0
+/goaisatu1.jpg
+1 1 0 4939 0 0
+/favicon.ico
+0 26 0 514812 0 0
+/yuuzi.png
+1 2 0 2546857 0 0
+/goaisatsu_tab2.png
+1 1 0 4283 0 0
+/toiawase_tab2.png
+1 1 0 4379 0 0
+# End Of Table - urls
+# -sites- (monthly)
+ec2-54-188-149-60.us-west-2.compute.amazonaws.com
+0 2 2 12984 1 1633817770
+/
+ec2-34-221-251-175.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-34-220-30-105.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-52-10-15-141.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633213290
+/
+floss.census.shodan.io
+0 1 1 7022 1 1634807345
+/
+msnbot-40-77-167-61.search.msn.com
+0 12 0 35760 0 0
+-
+ec2-34-219-248-97.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ubuntu14167124.aspadmin.net
+0 3 3 21066 3 1635197237
+/
+ec2-52-13-72-180.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634855562
+/
+msnbot-207-46-13-124.search.msn.com
+0 1 0 1855 1 1634886079
+/
+ec2-54-186-242-137.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634941334
+/
+ec2-34-221-107-26.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633474012
+/
+87-250-224-80.spider.yandex.com
+0 1 0 3534 0 0
+-
+ec2-34-218-64-170.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633645963
+/
+ec2-54-188-40-61.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634250583
+/
+116-91-189-221.tokyo.ap.gmo-isp.jp
+0 3 3 21066 3 1635009849
+/
+ec2-35-167-142-117.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+205.185.116.89
+0 2 2 26109 1 1633810267
+/
+msnbot-40-77-167-59.search.msn.com
+0 8 0 23840 0 0
+-
+serverapps3.las01.shana.sg
+0 1 1 6492 1 1633810270
+/
+87-250-224-63.spider.yandex.com
+0 2 1 10556 1 1634769680
+/
+buffet.census.shodan.io
+0 6 3 44793 2 1634461843
+/
+121.5.145.96
+0 2 2 12984 1 1634191675
+/
+ec2-54-185-191-113.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-34-219-16-196.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-54-71-190-227.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633904549
+/
+ec2-54-202-51-137.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1635114227
+/
+ec2-34-214-6-214.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633299790
+/
+mango.census.shodan.io
+0 1 1 7022 1 1633598246
+/
+msnbot-40-77-167-42.search.msn.com
+0 16 0 47680 0 0
+-
+ec2-18-236-248-154.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1635028746
+/
+email.data-support.at.bitsighttech.com
+0 31 13 233648 7 1634928834
+/
+87-250-224-184.spider.yandex.com
+0 1 1 7022 1 1633167504
+/
+ec2-54-200-176-12.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634508540
+/
+ec2-52-27-119-174.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634077144
+/
+5-255-253-107.spider.yandex.com
+0 1 0 3534 0 0
+-
+kiwi.census.shodan.io
+0 3 1 14090 1 1633512845
+/
+petalbot-114-119-150-149.petalsearch.com
+0 1 1 2521 1 1634937018
+/
+sbb1.e-joho.net
+0 2 2 14044 1 1633590879
+/
+ec2-35-84-211-34.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634422994
+/
+ec2-52-36-253-49.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634508484
+/
+ec2-34-221-60-166.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-34-219-114-70.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-54-191-199-176.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634337162
+/
+can.census.shodan.io
+0 6 3 44793 2 1634771470
+/
+msnbot-157-55-39-164.search.msn.com
+0 1 1 1527320 0 0
+-
+msnbot-157-55-39-6.search.msn.com
+0 41 41 265516 41 1634970408
+/
+ec2-52-12-252-177.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634594727
+/
+ec2-52-12-64-33.us-west-2.compute.amazonaws.com
+0 1 1 7022 1 1633973414
+/
+87-250-224-5.spider.yandex.com
+0 1 0 3534 0 0
+-
+ec2-35-164-36-32.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634162981
+/
+ec2-52-26-132-160.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-34-214-215-98.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633992170
+/
+ec2-34-212-21-39.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634422235
+/
+5-255-253-171.spider.yandex.com
+0 2 1 10556 1 1635007228
+/
+49.234.43.244
+0 1 1 6492 1 1633423854
+/
+ec2-54-186-61-177.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634423032
+/
+ec2-34-219-8-225.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634337107
+/
+msnbot-157-55-39-13.search.msn.com
+0 1 1 4668 0 0
+-
+ec2-54-148-160-171.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+133-175-21-191.tokyo.ap.gmo-isp.jp
+0 2 2 14044 1 1634148681
+/
+msnbot-40-77-167-44.search.msn.com
+0 2 0 5960 0 0
+-
+5-45-207-95.spider.yandex.com
+0 3 2 17578 2 1633777683
+/
+ec2-54-149-187-134.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+msnbot-40-77-167-53.search.msn.com
+0 2 0 5960 0 0
+-
+ec2-34-209-65-164.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+msnbot-207-46-13-107.search.msn.com
+0 21 20 131375 21 1633406894
+/
+87-250-224-200.spider.yandex.com
+0 1 1 7022 1 1634147928
+/
+fp276fd084.tkyc005.ap.nuro.jp
+0 1 1 7022 1 1633559311
+/
+ec2-35-167-59-35.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-34-213-21-227.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+msnbot-157-55-39-1.search.msn.com
+0 5 5 32380 5 1635155787
+/
+ec2-34-216-119-51.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1635114186
+/
+tab.census.shodan.io
+0 6 3 44793 2 1633903018
+/
+171.13.14.35
+0 1 1 4939 0 0
+-
+ec2-52-41-170-250.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+171.13.14.40
+0 1 1 4939 0 0
+-
+171.13.14.41
+0 1 1 5659 0 0
+-
+171.13.14.44
+0 2 2 1575297 0 0
+-
+171.13.14.45
+0 1 1 4684 0 0
+-
+171.13.14.46
+0 1 1 167277 0 0
+-
+171.13.14.49
+0 1 1 160696 0 0
+-
+ec2-34-212-38-61.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1634768138
+/
+171.13.14.50
+0 1 1 4523 0 0
+-
+171.13.14.51
+0 2 2 13159 1 1633196801
+/
+ec2-35-163-216-78.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633817818
+/
+171.13.14.59
+0 1 1 1019537 0 0
+-
+ec2-54-69-123-243.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1635201734
+/
+34.76.61.20
+0 1 1 7022 1 1634350112
+/
+ip96f9d6fa.ap.nuro.jp
+0 1 1 7022 1 1633947816
+/
+171.13.14.83
+0 1 1 4283 0 0
+-
+171.13.14.84
+0 2 2 7974 0 0
+-
+msnbot-157-55-39-43.search.msn.com
+0 1 1 4668 0 0
+-
+3-109-158-51.instances.scw.cloud
+0 1 1 7022 1 1634954222
+/
+ec2-52-34-104-35.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ec2-54-186-130-97.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633132071
+/
+ec2-34-217-7-128.us-west-2.compute.amazonaws.com
+0 1 1 7022 1 1634576982
+/
+ec2-18-237-112-89.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1633387077
+/
+# End Of Table - sites (monthly)
+# -sites- (daily)
+ec2-34-219-248-97.us-west-2.compute.amazonaws.com
+0 1 1 19617 0 0
+-
+ubuntu14167124.aspadmin.net
+0 1 1 7022 1 1635197237
+/
+msnbot-157-55-39-1.search.msn.com
+0 1 1 6476 1 1635155787
+/
+ec2-54-69-123-243.us-west-2.compute.amazonaws.com
+0 1 1 6492 1 1635201734
+/
+# End Of Table - sites (daily)
+# -referrers- 
+- (Direct Request)
+0 245
+https://search.yahoo.co.jp/
+0 1
+https://www.koseki-law.jp/
+1 14
+# End Of Table - referrers
+# -agents- 
+Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:80.0) Gecko/
+0 9
+Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleW
+0 2
+Mozilla/5.0 (Windows NT 4.0; WOW64) AppleWebKit/537.36 (KHTML
+0 1
+Mozilla/5.0 (Linux; Android 10; LIO-AN00 Build/HUAWEILIO-AN00
+0 1
+Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 
+0 21
+Mozilla/5.0 (compatible; YandexBot/3.0; +http://yandex.com/bo
+0 12
+Mozilla/5.0 (compatible; bingbot/2.0; +http://www.bing.com/bi
+0 111
+Mozilla/5.0 (Windows NT 6.3; WOW64; Trident/7.0; rv:11.0) lik
+0 4
+Mozilla/5.0 (Macintosh; Intel Mac OS X 11_0_0) AppleWebKit/53
+0 1
+Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, li
+0 64
+Chrome/54.0 (Windows NT 10.0)
+0 2
+# End Of Table - agents
+# -search strings- 
+# End Of Table - search strings
+# -usernames- 
+# End Of Table - usernames

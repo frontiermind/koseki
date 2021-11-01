@@ -1,0 +1,15 @@
+<?=$tpl_mail_form['mail_body']?>
+
+
+<?php foreach ($tpl_mail_queries as $tpl_q) { ?>
+Å§<?=$tpl_q['no']?> <?=$tpl_q['query']?>
+
+	<?php if ($tpl_q['qtype'] == COOLIE_QUERYTYPE_DATE_YM || $tpl_q['qtype'] == COOLIE_QUERYTYPE_DATE_YMD || $tpl_q['qtype'] == COOLIE_QUERYTYPE_DATE_MD) { ?>
+<?php echo implode("/", $tpl_mail_answers[$tpl_q['no']]) ?>
+	<?php } elseif ($tpl_q['qtype'] == COOLIE_QUERYTYPE_ZIPCODE || $tpl_q['qtype'] == COOLIE_QUERYTYPE_TEL) { ?>
+<?php echo implode("-", $tpl_mail_answers[$tpl_q['no']]) ?>
+	<?php } else  { ?>
+<?php echo implode(" / ", (array)$tpl_mail_answers[$tpl_q['no']]) ?>
+  <?php } ?>
+
+<?php } ?>

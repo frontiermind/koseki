@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+<title><?=$tpl_form['title']?></title>
+<?php if ($tpl_form and ($tpl_AUTHFLAG or (strtotime($tpl_form['start_stamp']) <= time() and strtotime($tpl_form['end_stamp']) >= time()))) { ?>
+<style type="text/css" media="screen">
+<!--
+.name { font-size: <?=$tpl_form['name_size']?>pt; color: <?=$tpl_form['name_color']?>; }
+.comment { font-size: <?=$tpl_form['comment_size']?>pt; color: <?=$tpl_form['comment_color']?>; /* text-align: <?=$tpl_form['comment_position']?>; */ }
+body { font-size: <?=$tpl_form['body_fontsize']?>pt; color: <?=$tpl_form['body_color']?>; background-color: <?=$tpl_form['body_bgcolor']?>; <?php if ($tpl_form['body_background']) { ?>background-image: url('img/dyn/body_<?=$tpl_id?>.<?php if ($tpl_form['body_background'] == 1) { ?>gif<?php } elseif ($tpl_form['body_background'] == 2) { ?>png<?php } elseif ($tpl_form['body_background'] == 3) { ?>jpg<?php } ?>'); <?php if ($tpl_form['body_background_fixed']) { ?>background-attachment: fixed;<?php } ?><?php } ?> }
+.query_no { font-size: <?=$tpl_form['query_no_size']?>pt; color: <?=$tpl_form['query_no_color']?>; background-color: <?=$tpl_form['query_no_bgcolor']?>; padding-left: 3px; padding-top: 3px; padding-bottom: 3px; <?php if ($tpl_form['query_no_img']) { ?>background-image: img/dyn/queryNo.<?php if ($tpl_form['query_no_img'] == 1) { ?>gif<?php } elseif ($tpl_form['query_no_img'] == 2) { ?>png<?php } elseif ($tpl_form['query_no_img'] == 3) { ?>jpg<?php } ?>; <?php } ?> }
+.query_no_pretext { font-size: <?=$tpl_form['query_no_pretext_size']?>pt; color: <?=$tpl_form['query_no_pretext_color']?>; }
+.query { font-size: <?=$tpl_form['query_size']?>pt; color: <?=$tpl_form['query_color']?>; background-color: <?=$tpl_form['query_bgcolor']?>; padding-left: 10px; padding-top: 3px; padding-bottom: 3px }
+.input { font-size: <?=$tpl_form['input_size']?>pt; color: <?=$tpl_form['input_color']?>; background-color: <?=$tpl_form['input_bgcolor']?>; padding-left: 10px; padding-top: 3px; padding-bottom: 10px }
+.precomment { font-size: <?=$tpl_form['precomment_size']?>pt; color: <?=$tpl_form['precomment_color']?>; }
+.appcomment { font-size: <?=$tpl_form['appcomment_size']?>pt; color: <?=$tpl_form['appcomment_color']?>; }
+.errmsg { color: #FF0000; }
+-->
+</style>
+<?php } ?>
+</head>
+<body>
+<?php if ($tpl_form and ($tpl_AUTHFLAG or (strtotime($tpl_form['start_stamp']) <= time() and strtotime($tpl_form['end_stamp']) >= time()))) { ?>
+<div align="<?=$tpl_form['comment_position']?>">
+	<form method="post" action="index.php">
+		<input type="hidden" name="id" value="<?=$tpl_id?>">
+		<input type="hidden" name="mode" value="<?php if ($tpl_form['confirm']) { ?>confirm<?php } else  { ?>submit<?php } ?>">
+		<?php if ($tpl_form['name_img']) { ?><img src="img/dyn/name_<?=$tpl_id?>.<?php if ($tpl_form['name_img'] == 1) { ?>gif<?php } elseif ($tpl_form['name_img'] == 2) { ?>png<?php } elseif ($tpl_form['name_img'] == 3) { ?>jpg<?php } ?>"> <?php } else  { ?><span class="name"><?=$tpl_form['name']?></span><?php } ?>
+		<div class="comment"><?=nl2br(preg_replace('/^?
+/m','&nbsp;
+',$tpl_form['comment']))?></div>
+		<hr width="80%">
+		<?php if ($tpl_queries) { ?> <?php foreach ($tpl_queries as $tpl_q) { ?> <?php if (!isset($tpl_default[$tpl_q['no']])) { ?><?php $tpl_default[$tpl_q['no']] = htmlspecialchars($tpl_q['selected']) ?><?php } ?>
+		<table width="500" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+				<td class="query_no" rowspan="2" valign="top" width="70"><?php if ($tpl_form['query_no_img']) { ?><img src="img/dyn/queryNo_<?=$tpl_id?>.<?php if ($tpl_form['query_no_img'] == 1) { ?>gif<?php } elseif ($tpl_form['query_no_img'] == 2) { ?>png<?php } elseif ($tpl_form['query_no_img'] == 3) { ?>jpg<?php } ?>"><?php } else  { ?><?php if ($tpl_form['query_no']) { ?><span class="query_no_pretext"><?=$tpl_form['query_no_pretext']?></span><?=$tpl_q['no']?><?php } ?><?php } ?></td>
+				<td class="query"><?=$tpl_q['query']?><?php if ($tpl_q['required']) { ?><span style="font-size: <?=$tpl_q['required_text_size']?>pt; color: <?=$tpl_q['required_text_color']?>">　<?=$tpl_q['required_text']?></span><br>
+					<?php } ?></td>
+			</tr>
+			<tr>
+				<td class="input">
+<?php if ($tpl_q['precomment']) { ?>
+					<span class="precomment"><?=$tpl_q['precomment']?></span><br>
+<?php } ?>
+					<br>
+<?php if ($tpl_err[$tpl_q['no']] & 1) { ?>
+					<span class="errmsg">*<?php if ($tpl_q['qtype'] == 7 or $tpl_q['qtype'] == 8 or $tpl_q['qtype'] == 10 or $tpl_q['qtype'] == 12 or $tpl_q['qtype'] == 13 or $tpl_q['qtype'] == 15 or $tpl_q['qtype'] == 16 or $tpl_q['qtype'] == 21) { ?>入力<?php } else  { ?>選択<?php } ?>してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 2) { ?>
+					<span class="errmsg">*正しく入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 4) { ?>
+					<span class="errmsg">*携帯電話のメールアドレスを入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 8) { ?>
+					<span class="errmsg">*携帯電話以外のメールアドレスを入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 16) { ?>
+					<span class="errmsg">*半角英数字で入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 32) { ?>
+					<span class="errmsg">*ひらがなで入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 64) { ?>
+					<span class="errmsg">*カタカナで入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 128) { ?>
+					<span class="errmsg">*正しく入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 256) { ?>
+					<span class="errmsg">*正しく入力してください</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 512) { ?>
+					<span class="errmsg">*選択できるのは<?=$tpl_q['max_limit']?>個までです</span><br>
+<?php } elseif ($tpl_err[$tpl_q['no']] & 1024) { ?>
+					<span class="errmsg">*<?=$tpl_q['min_limit']?>個以上選択してください</span><br>
+<?php } ?>
+<?php if ($tpl_q['qtype'] >= 1 and $tpl_q['qtype'] <= 6) { ?>
+
+<?php $tpl_answerList = preg_split('/[\r\n]+/', $tpl_q["answer_list"]); ?>
+<?php if ($tpl_q['qtype'] >= 5) { ?>
+					<select name="answers[<?=$tpl_q['no']?>]<?php if ($tpl_q['qtype'] == 6) { ?>[]<?php } ?>" size="<?=$tpl_q['input_rows']?>" <?php if ($tpl_q['qtype'] == 6) { ?>multiple<?php } ?>>
+<?php } ?>
+<?php if ($tpl_answerList) { ?>
+<?php foreach ($tpl_answerList as $tpl_ans) { ?><?php $tpl_qtans = htmlspecialchars($tpl_ans) ?>
+<?php if ($tpl_q['qtype'] <= 4) { ?>
+					<input type="<?php if ($tpl_q['qtype'] <= 2) { ?>radio<?php } else  { ?>checkbox<?php } ?>" name="answers[<?=$tpl_q['no']?>]<?php if ($tpl_q['qtype'] >= 3) { ?>[]<?php } ?>" value="<?=$tpl_qtans?>" <?php if ($tpl_default[$tpl_q['no']] == $tpl_ans or (is_array($tpl_default[$tpl_q['no']]) and in_array($tpl_ans, $tpl_default[$tpl_q['no']]))) { ?>checked<?php } ?>>
+						<?=$tpl_ans?><?php if ($tpl_q['qtype'] % 2 == 1) { ?><br><?php } else  { ?>　<?php } ?>
+
+<?php } else  { ?>
+						<option value="<?=$tpl_qtans?>" <?php if ($tpl_default[$tpl_q['no']] == $tpl_ans or (is_array($tpl_default[$tpl_q['no']]) and in_array($tpl_ans, $tpl_default[$tpl_q['no']]))) { ?>selected<?php } ?>><?=$tpl_qtans?></option>
+<?php } ?>
+<?php } ?>
+<?php } ?>
+<?php if ($tpl_q['qtype'] >= 5) { ?>
+					</select>
+<?php } ?>
+<?php if ($tpl_q['qtype'] != 1 and $tpl_q['qtype'] != 3) { ?>
+					<br>
+<?php } ?>
+<?php } elseif ($tpl_q['qtype'] == 7) { ?>
+					<input type="text" name="answers[<?=$tpl_q['no']?>]" size="<?=$tpl_q['input_cols']?>" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']])?>">
+					<br>
+<?php } elseif ($tpl_q['qtype'] == 8) { ?>
+					<textarea name="answers[<?=$tpl_q['no']?>]" cols="<?=$tpl_q['input_cols']?>" rows="<?=$tpl_q['input_rows']?>"><?=htmlspecialchars($tpl_default[$tpl_q['no']])?></textarea>
+					<br>
+<?php } elseif ($tpl_q['qtype'] == 9) { ?><?php $tpl_area = include "config/masters/area.php"; mb_convert_variables("SJIS", "EUC-JP", $tpl_area) ?>
+					<select name="answers[<?=$tpl_q['no']?>]">
+<?php foreach ($tpl_area as $tpl_v) { ?>
+						<option value="<?=$tpl_v?>" <?php if ($tpl_default[$tpl_q['no']] == $tpl_v) { ?>selected<?php } ?>><?=$tpl_v?></option>
+<?php } ?>
+					</select>
+					<br>
+<?php } elseif ($tpl_q['qtype'] >= 10 and $tpl_q['qtype'] <= 14) { ?>
+<?php if ($tpl_q['qtype'] == 10 or $tpl_q['qtype'] == 12 or $tpl_q['qtype'] == 13) { ?>
+					<input type="text" name="answers[<?=$tpl_q['no']?>][0]" size="6" maxlength="4" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']][0])?>">年　
+<?php } ?>
+<?php if ($tpl_q['qtype'] >= 11 and $tpl_q['qtype'] <= 14) { ?>
+					<select name="answers[<?=$tpl_q['no']?>][1]">
+						<option value="" <?php if ($tpl_default[$tpl_q['no']][1] == "") { ?>selected<?php } ?>>　</option>
+<?php for ($tpl_i = 1; $tpl_i <= 12; $tpl_i++) { ?>
+						<option value="<?=$tpl_i?>" <?php if ($tpl_default[$tpl_q['no']][1] == $tpl_i) { ?>selected<?php } ?>><?=$tpl_i?></option>
+<?php } ?>
+					</select>月　
+<?php } ?>
+<?php if ($tpl_q['qtype'] >= 13 and $tpl_q['qtype'] <= 14) { ?>
+					<select name="answers[<?=$tpl_q['no']?>][2]">
+						<option value="" <?php if ($tpl_default[$tpl_q['no']][2] == "") { ?>selected<?php } ?>>　</option>
+<?php for ($tpl_i = 1; $tpl_i <= 31; $tpl_i++) { ?>
+						<option value="<?=$tpl_i?>" <?php if ($tpl_default[$tpl_q['no']][2] == $tpl_i) { ?>selected<?php } ?>><?=$tpl_i?></option>
+<?php } ?>
+					</select>日
+<?php } ?>
+					<br>
+<?php } elseif ($tpl_q['qtype'] == 15) { ?>
+					<input type="text" name="answers[<?=$tpl_q['no']?>][0]" size="5" maxlength="3" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']][0])?>">-
+					<input type="text" name="answers[<?=$tpl_q['no']?>][1]" size="6" maxlength="4" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']][1])?>"><br>
+<?php } elseif ($tpl_q['qtype'] == 16) { ?>
+					<input type="text" name="answers[<?=$tpl_q['no']?>][0]" size="5" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']][0])?>">-
+					<input type="text" name="answers[<?=$tpl_q['no']?>][1]" size="5" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']][1])?>">-
+					<input type="text" name="answers[<?=$tpl_q['no']?>][2]" size="5" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']][2])?>"><br>
+<?php } elseif ($tpl_q['qtype'] == 17) { ?>
+					<select name="answers[<?=$tpl_q['no']?>]">
+						<option value="" <?php if ($tpl_default[$tpl_q['no']] == "") { ?>selected<?php } ?>>　</option>
+<?php foreach (array("月", "火", "水", "木", "金", "土", "日") as $tpl_i) { ?>
+						<option value="<?=$tpl_i?>" <?php if ($tpl_default[$tpl_q['no']] == $tpl_i) { ?>selected<?php } ?>><?=$tpl_i?></option>
+<?php } ?>
+					</select>曜<br>
+<?php } elseif ($tpl_q['qtype'] == 18) { ?>
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="男" <?php if ($tpl_default[$tpl_q['no']] == "男") { ?>checked<?php } ?>>男　
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="女" <?php if ($tpl_default[$tpl_q['no']] == "女") { ?>checked<?php } ?>>女<?php if (!$tpl_q['required']) { ?>　
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="秘密" <?php if ($tpl_default[$tpl_q['no']] == "秘密") { ?>checked<?php } ?>>秘密<?php } ?>
+					<br>
+<?php } elseif ($tpl_q['qtype'] == 19) { ?>
+					<select name="answers[<?=$tpl_q['no']?>]">
+						<option value="" <?php if ($tpl_default[$tpl_q['no']] == "") { ?>selected<?php } ?>>　</option>
+<?php foreach (array("牡羊座", "牡牛座", "双子座", "蟹座", "獅子座", "乙女座", "天秤座", "蠍座", "射手座", "山羊座", "水瓶座", "魚座") as $tpl_i) { ?>
+						<option value="<?=$tpl_i?>" <?php if ($tpl_default[$tpl_q['no']] == $tpl_i) { ?>selected<?php } ?>><?=$tpl_i?></option>
+<?php } ?>
+					</select>
+					<br>
+<?php } elseif ($tpl_q['qtype'] == 20) { ?>
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="A型" <?php if ($tpl_default[$tpl_q['no']] == "A型") { ?>checked<?php } ?>>A型　
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="B型" <?php if ($tpl_default[$tpl_q['no']] == "B型") { ?>checked<?php } ?>>B型　
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="O型" <?php if ($tpl_default[$tpl_q['no']] == "O型") { ?>checked<?php } ?>>O型　
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="AB型" <?php if ($tpl_default[$tpl_q['no']] == "AB型") { ?>checked<?php } ?>>AB型<?php if (!$tpl_q['required']) { ?>　
+					<input type="radio" name="answers[<?=$tpl_q['no']?>]" value="秘密" <?php if ($tpl_default[$tpl_q['no']] == "秘密") { ?>checked<?php } ?>>秘密<?php } ?><br>
+<?php } elseif ($tpl_q['qtype'] == 21) { ?>
+					<input type="text" name="answers[<?=$tpl_q['no']?>]" value="<?=htmlspecialchars($tpl_default[$tpl_q['no']])?>" size="40">
+					<br>
+<?php } ?>
+					<br>
+<?php if ($tpl_q['appcomment']) { ?>
+					<span class="appcomment"><?=$tpl_q['appcomment']?></span><br>
+<?php } ?>
+				</td>
+			</tr>
+		</table>
+<?php } ?>
+		<br>
+<?php if ($tpl_form['submit'] == 2) { ?>
+		<input type="image" src="img/dyn/submit_<?=$tpl_id?>.<?php if ($tpl_form['submit_img'] == 1) { ?>gif<?php } elseif ($tpl_form['submit_img'] == 2) { ?>png<?php } elseif ($tpl_form['submit_img'] == 3) { ?>jpg<?php } ?>" name="submit" value="<?=htmlspecialchars($tpl_form['submit_caption'])?>" alt="<?=htmlspecialchars($tpl_form['submit_caption'])?>" border="0">
+<?php } elseif ($tpl_form['submit'] == 1) { ?>
+		<input type="submit" name="submit" value="<?=htmlspecialchars($tpl_form['submit_caption'])?>">
+<?php } ?>
+<?php } else  { ?>
+		<p>（質問が設定されていません）</p>
+<?php } ?>
+	</form>
+	<hr width="80%">
+<?php if ($tpl_form['return'] == 1) { ?>
+	<a href="<?=$tpl_form['return_url']?>"><?=$tpl_form['return_caption']?></a> <?php } elseif ($tpl_form['return'] == 2) { ?><a href="<?=$tpl_form['return_url']?>"><img src="img/dyn/return_<?=$tpl_id?>.<?php if ($tpl_form['return_img'] == 1) { ?>gif<?php } elseif ($tpl_form['return_img'] == 2) { ?>png<?php } elseif ($tpl_form['return_img'] == 3) { ?>jpg<?php } ?>" alt="<?=htmlspecialchars($tpl_form['return_caption'])?>" title="<?=htmlspecialchars($tpl_form['return_caption'])?>" border="0"></a><?php } ?> </div>
+
+<?php } else  { ?>
+<div align=center> 
+	<table cellspacing=5 cellpadding=5 width="600" border=0> 
+		<tr> 
+			<td align="center"><hr> 
+				<font color="#6E6E6E" size="2">指定されたURLのファイルは公開されていません。</font>
+				<hr></td> 
+		</tr> 
+		<tr> 
+			<td align=left><p><font color="#666666" size=2>■原因として以下のことが考えられます：</font></p> 
+				<ul> 
+					<li><font color="#666666" size=2> 管理者の設定した公開日時が来ていない。</font></li> 
+					<li><font color="#666666" size=2> 管理者の設定した公開日時が終了した。</font></li> 
+					<li><font color="#666666" size=2> 入力したURLに間違いがある。 </font> </li> 
+				</ul> 
+				<p><font color="#666666" size=2>■対処法：</font></p> 
+				<ul> 
+					<li><font color="#666666" size=2>公開日時をサイト管理者にお問い合わせください。</font> </li> 
+					<li><font color="#666666" size=2>入力したURLに間違いがないか再度確認してください。</font></li> 
+				</ul></td> 
+		</tr> 
+	</table> 
+</div> 
+<?php } ?>
+</body>
+</html>

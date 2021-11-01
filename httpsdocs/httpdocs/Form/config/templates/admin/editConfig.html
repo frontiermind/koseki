@@ -1,0 +1,230 @@
+{htmlspchars_recursive($default)}
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+	<meta http-equiv="content-type" content="text/html;charset=Shift_JIS">
+	<title>フォーム基本設定</title>
+	<link href="coolie.css" rel="stylesheet" type="text/css">
+	<style type="text/css" media="screen">
+	<!--
+.class12 { color: white; font-size: 12px }
+-->
+	</style>
+	<script language="JavaScript" type="text/javascript" src="coolie.js"></script>
+	</head>
+
+	<body bgcolor="#ffffff" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+		<div align="left">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="class" bgcolor="#0066cc" width="20"></td>
+					<td class="class" bgcolor="#0066cc" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="#0066cc" width="18"></td>
+					<td class="class" bgcolor="#0066cc"></td>
+				</tr>
+				<tr>
+					<td class="class" bgcolor="white" width="20"></td>
+					<td class="class" bgcolor="white" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="white" width="18"></td>
+					<td class="class" bgcolor="white"></td>
+				</tr>
+				<tr height="14">
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="20" height="28"><img src="img/space.gif" alt="" height="20" width="20" border="0"></td>
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="248" height="28"><img src="img/setei.gif" alt="" height="17" width="114" border="0"></td>
+					<td rowspan="2" valign="top" width="18" height="28"><img src="img/bar_p.gif" alt="" height="30" width="18" border="0"></td>
+					<td class="class_tbg" bgcolor="#0066cc" height="14">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="12" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr height="2">
+					<td bgcolor="white" height="14"></td>
+				</tr>
+				<tr>
+					<td width="20"></td>
+					<td colspan="3">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="1" border="0"></div>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" background="img/back.jpg">
+				<tr>
+					<td class="class_tbg"><img src="img/kihon.jpg" alt="" height="30" width="143" border="0"></td>
+				  <td width="370" align="right" valign="middle" class="class_tbg" background="img/back.jpg" ><a href="admin.php" class="back">管理メニュー</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=formList" class="back">フォーム一覧</a><span class="back"> &gt;&gt; </span><a href="admin.php?mode=formEdit&id={$id}" class="back">フォーム設定 ▲</a><img src="img/space.gif" alt="" height="20" width="10" border="0"></td>
+				</tr>
+			</table>
+			<form method="post" action="admin.php" name="editConfig" enctype="multipart/form-data">
+			<input type="hidden" name="id" value="{$id}">
+			<input type="hidden" name="mode" value="editConfig">
+			<table width="680" border="0" cellspacing="3" cellpadding="0">
+				<tr>
+					<td colspan="3" align="left">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="15" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white">■フォーム名称(ウィンドウタイトル)</td>
+					<td rowspan="24" align="left" width="20"><span class="errmsg"><img src="img/space.gif" alt="" height="1" width="20" border="0"></span></td>
+					<td align="left">{if ($err.title.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.title.notHTML)}<span class="errmsg">*HTMLタグは使用できません</span><br>{/if}
+						<input name="config[title]" type="text" value="{$default.title}" size="40" border="0">
+						※タグ使用 不可</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■公開開始日時</td>
+					<td align="left">{if ($err.start_stamp.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.start_stamp.timestamp)}<span class="errmsg">*「YYYY-MM-DD hh:mm:ss」の形式で2038年以前の日時を入力してください。</span><br>{/if}
+						<input name="config[start_stamp]" type="text" id="start_stamp" value="{$default.start_stamp}" size="23" border="0"></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■公開終了日時</td>
+					<td align="left">{if ($err.end_stamp.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.end_stamp.timestamp)}<span class="errmsg">*「YYYY-MM-DD hh:mm:ss」の形式で2038年以前の日時を入力してください</span><br>{/if}
+						<input name="config[end_stamp]" type="text" id="end_stamp" value="{$default.end_stamp}" size="23" border="0"></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■フォーム表示位置</td>
+					<td align="left">{if ($err.comment_position.empty)}<span class="errmsg">*選択してください</span><br>{/if}
+						<input name="config[comment_position]" type="radio" value="left" border="0" {if ($default.comment_position == "left")}checked{/if}>左　<input type="radio" name="config[comment_position]" value="center" border="0" {if ($default.comment_position == "center")}checked{/if}>中央　<input type="radio" name="config[comment_position]" value="right" border="0" {if ($default.comment_position == "right")}checked{/if}>右</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white">■表題</td>
+					<td align="left">{if ($err.name.empty)}<span class="errmsg">*入力してください</span><br>{/if}
+						<input name="config[name]" type="text" id="name" value="{$default.name}" size="40" border="0">
+						※タグ使用 可</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■表題 文字サイズ</td>
+					<td align="left">{if ($err.name_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.name_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input name="config[name_size]" type="text" id="name_size" value="{$default.name_size}" size="3" border="0">
+					pt</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■表題 文字色</td>
+					<td align="left">{if ($err.name_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.name_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[name_color]" type="text" id="name_color" value="{$default.name_color}" size="8" maxlength="7" border="0">
+						<script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editConfig.name_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■表題 画像登録・変更</td>
+					<td align="left"><input name="name_img" type="file" id="name_img" size="40">
+					{if ($default.name_img)}　*登録済み&gt;&gt;
+						<input type="checkbox" name="config[name_img]" value="0">
+						削除する{/if}</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■表題下コメント</td>
+					<td align="left">{if ($err.comment.empty)}<span class="errmsg">*入力してください</span><br>{/if}
+						<textarea name="config[comment]" cols="40" rows="3" wrap="VIRTUAL" id="comment" border="0">{$default.comment}</textarea>
+							※タグ使用可</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■表題下コメント 文字サイズ</td>
+					<td align="left">{if ($err.comment_size.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.comment_size.numeric)}<span class="errmsg">*数字で入力してください</span><br>{/if}
+						<input name="config[comment_size]" type="text" id="comment_size" value="{$default.comment_size}" size="3" border="0">
+					pt</td>
+				</tr>
+				<tr>
+						<td align="left" bgcolor="white">■表題下コメント 文字色</td>
+						<td align="left">{if ($err.comment_color.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.comment_color.color)}<span class="errmsg">*正しく指定してください</span><br>{/if}
+						<input name="config[comment_color]" type="text" id="comment_color" value="{$default.comment_color}" size="8" maxlength="7" border="0">
+              <script language="JavaScript" type="text/javascript">document.write('<a href="javascript:;" onClick="popColorPicker(editConfig.comment_color)">カラーピッカー</a>');</script></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■送信ボタン</td>
+					<td align="left">{if ($err.submit.empty)}<span class="errmsg">*選択してください</span><br>{/if}
+						<input type="radio" name="config[submit]" value="1" border="0" {if ($default.submit == "1")}checked{/if}>テキスト　<input type="radio" name="config[submit]" value="2" border="0" {if ($default.submit == "2")}checked{/if}>画像</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■送信ボタン 表記</td>
+					<td align="left">{if ($err.submit_caption.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.submit_caption.notHTML)}<span class="errmsg">*HTMLタグは使用できません</span><br>{/if}
+						<input type="text" name="config[submit_caption]" size="20" border="0" value="{$default.submit_caption}"></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■送信ボタン 画像登録・変更</td>
+					<td align="left"><input type="file" name="submit_img" size="40"></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■戻るリンク</td>
+					<td align="left">{if ($err.return.empty)}<span class="errmsg">*選択してください</span><br>{/if}
+						<input type="radio" name="config[return]" value="0" border="0" {if ($default.return == "0")}checked{/if}>表示しない　<input type="radio" name="config[return]" value="1" border="0" {if ($default.return == "1")}checked{/if}>テキスト　<input type="radio" name="config[return]" value="2" border="0" {if ($default.return == "2")}checked{/if}>画像</td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■戻るリンク 表記</td>
+					<td align="left">{if ($err.return_caption.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.return_caption.notHTML)}<span class="errmsg">*HTMLタグは使用できません</span><br>{/if}
+						<input type="text" name="config[return_caption]" value="{$default.return_caption}" size="20" border="0"></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■戻るリンク 画像登録・変更</td>
+					<td align="left"><input type="file" name="return_img" size="40"></td>
+				</tr>
+				<tr>
+					<td align="left" bgcolor="white" width="250">■戻り先URL</td>
+					<td align="left">{if ($err.return_url.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.return_url.url)}<span class="errmsg">*正しく入力してください</span><br>{/if}
+						<input type="text" name="config[return_url]" value="{$default.return_url}" size="60" border="0"></td>
+				</tr>
+				<tr>
+					<td align="left" width="250">■内容確認ページ</td>
+					<td><input type="hidden" name="config[confirm]" value="0">
+						<input type="checkbox" name="config[confirm]" value="1" border="0" {if ($default.confirm)}checked{/if}>表示する</td>
+				</tr>
+				<tr>
+					<td align="left" width="250">■回答内容メール</td>
+					<td>{if ($err.send_mail.empty)}<span class="errmsg">*選択してください</span><br>{/if}
+{if ($default.type == 1)}
+	{if ($default.send_mail < 2)}
+		{php}$default.send_mail = 2{/php}
+	{/if}
+{else}
+						<input type="radio" name="config[send_mail]" value="0" border="0" {if (!$default.send_mail)}checked{/if}>送信しない　<input type="radio" name="config[send_mail]" value="1" border="0" {if ($default.send_mail == 1)}checked{/if}>回答者のみ<br>
+{/if}
+						<input type="radio" name="config[send_mail]" value="2" border="0" {if ($default.send_mail == 2)}checked{/if}>管理者のみ　<input type="radio" name="config[send_mail]" value="3" border="0" {if ($default.send_mail == 3)}checked{/if}>回答者と管理者</td>
+				</tr>
+				<tr>
+					<td align="left" width="250">■回答者宛メール 件名</td>
+					<td>{if ($err.mail_subject.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.mail_subject.notHTML)}<span class="errmsg">*HTMLタグは使用できません</span><br>{/if}
+						<input type="text" name="config[mail_subject]" size="30" border="0" value="{$default.mail_subject}"></td>
+				</tr>
+				<tr>
+					<td align="left" width="250">■回答者宛メール 本文</td>
+					<td>{if ($err.mail_body.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.mail_body.notHTML)}<span class="errmsg">*HTMLタグは使用できません</span><br>{/if}
+						<textarea name="config[mail_body]" rows="4" cols="50">{$default.mail_body}</textarea></td>
+				</tr>
+				<tr>
+					<td align="left" width="250">■回答者宛メール 差出人名</td>
+					<td>{if ($err.mail_from_name.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.mail_from_name.notHTML)}<span class="errmsg">*HTMLタグは使用できません</span><br>{/if}
+						<input type="text" name="config[mail_from_name]" value="{$default.mail_from_name}" size="20" border="0"></td>
+				</tr>
+				<tr>
+					<td align="left" width="250">■回答者宛メール 差出人アドレス</td>
+					<td>{if ($err.mail_from_address.empty)}<span class="errmsg">*入力してください</span><br>
+						{elseif ($err.mail_from_address.email)}<span class="errmsg">*正しく入力してください</span><br>{/if}
+						<input type="text" name="config[mail_from_address]" size="30" border="0" value="{$default.mail_from_address}"></td>
+				</tr>
+			</table>
+			<hr>
+			<input type="submit" name="submitButtonName" value="設定">
+			</form>
+		</div>
+{php}require_once "colorPicker.php"{/php}
+	</body>
+
+</html>

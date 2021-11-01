@@ -1,0 +1,159 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+		<title>アクセス統計</title>
+	  <link href="coolie.css" rel="stylesheet" type="text/css">
+		<style type="text/css" media="screen">
+	<!--
+.class12  { color: #000; font-size: 12px }
+-->
+	  </style>
+	</head>
+
+	<body bgcolor="#ffffff" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+		<div align="center">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr height="5">
+					<td bgcolor="#0066cc" width="20" height="5"></td>
+					<td height="5" colspan="2" bgcolor="#0066cc">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+				</tr>
+				<tr height="5">
+					<td width="20" height="5"></td>
+					<td height="5" colspan="2">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+				</tr>
+				<tr height="30">
+					<td class="class_tbg" bgcolor="#0066cc" width="20" height="30"><img src="img/space.gif" alt="" height="20" width="20" border="0"></td>
+					<td height="30" bgcolor="#0066cc" class="class_tbg"><img src="img/acsess_top.gif" alt="" height="17" width="114" border="0"></td>
+				  <td width="150" align="right" valign="middle" class="class_tbg" bgcolor="#0066cc"><a href="admin.php" class="back">管理メニュー ▲</a><img src="img/space.gif" alt="" height="20" width="10" border="0"></td>
+				</tr>
+			</table>
+			<form method="post" action="admin.php">
+			<input type="hidden" name="mode" value="accessAnalyze">
+			<span class="class12"><select name="span" size="1">
+{php}
+$tpl_nowY = (int) strftime("%Y");
+$tpl_nowM = (int) strftime("%m");
+$tpl_startY = $tpl_nowM == 12 ? $tpl_nowY - 1 : $tpl_nowY - 2;
+$tpl_startM = $tpl_nowM == 12 ? 1 : $tpl_nowM + 1;
+{/php}
+{for ($y = $nowY; $y >= $startY; $y--)}
+{for ($m = 12; $m >= 1; $m--)}
+{php}
+if ($tpl_y == $tpl_startY and $tpl_m < $tpl_startM) {
+	continue;
+} elseif ($tpl_y == $tpl_nowY and $tpl_m > $tpl_nowM) {
+	continue;
+}
+$tpl_yyyymm = sprintf("%04d-%02d", $tpl_y, $tpl_m);
+{/php}
+					<option value="{$yyyymm}" {if ($span == $yyyymm)}selected{/if}>{$y}年{$m}月</option>
+{/for}
+{/for}
+				</select>　 <select name="date" size="1">
+					<option value="0" {if ($date == 0)}selected{/if}>1ヶ月</option>
+{for ($d = 1; $d <= 31; $d++)}
+					<option value="{php}printf("%02d", $d){/php}" {if ($date == $d)}selected{/if}>{$d}日</option>
+{/for}
+				</select> の　 <select name="group" size="1">
+					<option value="1" {if ($group == 1)}selected{/if}>日毎</option>
+					<option value="2" {if ($group == 2)}selected{/if}>時間毎</option>
+					<option value="3" {if ($group == 3)}selected{/if}>ブラウザ毎</option>
+					<option value="4" {if ($group == 4)}selected{/if}>IPアドレス毎</option>
+				</select>のアクセス数を
+				<input type="submit" name="submitButtonName" value="表示"></span>
+			</form>
+				<hr>
+{php}$row = 1{/php}
+{if ($group == 1)}
+{php}list($y, $m) = explode("-", $tpl_span);{/php}
+				<table width="560" border="0" cellspacing="2" cellpadding="0">
+					<tr align="center">
+						<td colspan="2" align="left" bgcolor="#b0e0e6">■{$y}年{$m}月{if ($date > 0)}{$date}日{else}の日別{/if}アクセス数</td>
+					</tr>
+					<tr>
+						<td align="center" bgcolor="#bababa" width="60">日</td>
+						<td align="center" bgcolor="#bababa">カウント</td>
+					</tr>
+{foreach ($data as $key => $cnt)}
+{if ($row % 2 == 0)}{php}$bgcolor = "#ededed";{/php}{else}{php}$bgcolor = "#ffffff";{/php}{/if}{php}$row++;{/php}
+					<tr>
+						<td align="center" width="60" bgcolor="{$bgcolor}">{$key}</td>
+						<td align="center" bgcolor="{$bgcolor}">{$cnt}</td>
+					</tr>
+{/foreach}
+				</table>
+{elseif ($group == 2)}			
+{php}list($y, $m) = explode("-", $tpl_span);{/php}
+		<table width="560" border="0" cellspacing="2" cellpadding="0">
+				<tr align="center">
+					<td colspan="2" align="left" bgcolor="#b0e0e6">■{$y}年{$m}月{if ($date > 0)}{$date}日{/if}の時間別アクセス数</td>
+				</tr>
+				<tr>
+					<td align="center" bgcolor="#bababa" width="60">時間</td>
+					<td align="center" bgcolor="#bababa">カウント</td>
+				</tr>
+				<tr>
+{foreach ($data as $key => $cnt)}
+{if ($row % 2 == 0)}{php}$bgcolor = "#ededed";{/php}{else}{php}$bgcolor = "#ffffff";{/php}{/if}{php}$row++;{/php}
+					<tr>
+						<td align="center" width="60" bgcolor="{$bgcolor}">{$key}</td>
+						<td align="center" bgcolor="{$bgcolor}">{$cnt}</td>
+					</tr>
+{/foreach}
+			</table>
+{elseif ($group == 3)}
+			<table width="560" border="0" cellspacing="2" cellpadding="0">
+				<tr align="center">
+					<td colspan="3" align="left" bgcolor="#b0e0e6">■ブラウザ別アクセス数上位50件</td>
+				</tr>
+				<tr align="center">
+					<td bgcolor="#bababa" width="60">順位</td>
+					<td bgcolor="#bababa" width="345">ブラウザ</td>
+					<td bgcolor="#bababa">カウント</td>
+				</tr>
+{php}$rank = 1;{/php}
+{foreach ($data as $key => $cnt)}
+{if ($row % 2 == 0)}{php}$bgcolor = "#ededed";{/php}{else}{php}$bgcolor = "#ffffff";{/php}{/if}{php}$row++;{/php}
+				<tr align="center">
+					<td width="60" bgcolor="{$bgcolor}">{$rank}</td>
+					<td width="345" bgcolor="{$bgcolor}">{$key}</td>
+					<td bgcolor="{$bgcolor}">{$cnt}</td>
+				</tr>
+{php}$rank++;{/php}
+{/foreach}
+			</table>
+			<br>
+{elseif ($group == 4)}
+			<table width="560" border="0" cellspacing="2" cellpadding="0">
+				<tr align="center">
+					<td colspan="3" align="left" bgcolor="#b0e0e6">■IPアドレス別アクセス数上位50件</td>
+				</tr>
+				<tr align="center">
+					<td bgcolor="#bababa" width="60">順位</td>
+					<td bgcolor="#bababa" width="345">IPアドレス</td>
+					<td bgcolor="#bababa">カウント</td>
+				</tr>
+				<tr align="center">
+{php}$rank = 1;{/php}
+{foreach ($data as $key => $cnt)}
+{if ($row % 2 == 0)}{php}$bgcolor = "#ededed";{/php}{else}{php}$bgcolor = "#ffffff";{/php}{/if}{php}$row++;{/php}
+				<tr align="center">
+					<td width="60" bgcolor="{$bgcolor}">{$rank}</td>
+					<td width="345" bgcolor="{$bgcolor}">{$key}</td>
+					<td bgcolor="{$bgcolor}">{$cnt}</td>
+				</tr>
+{php}$rank++;{/php}
+{/foreach}
+			</table>
+{/if}
+		</div>
+	</body>
+
+</html>

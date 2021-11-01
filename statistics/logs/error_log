@@ -1,0 +1,9 @@
+[Tue Oct 26 09:48:24 2021] [error] [client 35.229.76.90] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/robots.txt
+[Tue Oct 26 09:48:49 2021] [error] [client 35.229.76.90] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/robots.txt
+[Tue Oct 26 11:36:03 2021] [error] [client 66.240.219.173] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/robots.txt
+[Tue Oct 26 11:36:08 2021] [error] [client 66.240.219.173] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/sitemap.xml
+[Tue Oct 26 11:36:13 2021] [error] [client 66.240.219.173] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/.well-known
+[Tue Oct 26 11:40:26 2021] [error] [client 106.72.5.33] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/apple-touch-icon-120x120-precomposed.png
+[Tue Oct 26 11:40:26 2021] [error] [client 106.72.5.33] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/apple-touch-icon-120x120.png
+[Tue Oct 26 11:40:26 2021] [error] [client 106.72.5.33] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/apple-touch-icon-precomposed.png
+[Tue Oct 26 11:40:26 2021] [error] [client 106.72.5.33] File does not exist: /var/www/vhosts/koseki-law.jp/httpdocs/apple-touch-icon.png

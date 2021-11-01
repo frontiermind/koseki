@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=shift_jis">
+		<title><?=$tpl_form['title']?></title>
+		<style type="text/css" media="screen"><!--
+.name { font-size: <?=$tpl_form['name_size']?>pt; color: <?=$tpl_form['name_color']?>; }
+.comment { font-size: <?=$tpl_form['comment_size']?>pt; color: <?=$tpl_form['comment_color']?>; /*text-align: <?=$tpl_form['comment_position']?>;*/ }
+body { font-size: <?=$tpl_form['body_fontsize']?>pt; color: <?=$tpl_form['body_color']?>; background-color: <?=$tpl_form['body_bgcolor']?>; <?php if ($tpl_form['body_background']) { ?>background-image: url('img/dyn/body.<?php if ($tpl_form['body_background'] == 1) { ?>gif<?php } elseif ($tpl_form['body_background'] == 2) { ?>png<?php } elseif ($tpl_form['body_background'] == 3) { ?>jpg<?php } ?>'); <?php if ($tpl_form['body_background_fixed']) { ?>background-attachment: fixed;<?php } ?><?php } ?> }
+.query_no { font-size: <?=$tpl_form['query_no_size']?>pt; color: <?=$tpl_form['query_no_color']?>; background-color: <?=$tpl_form['query_no_bgcolor']?>; padding-left: 3px; padding-top: 3px; padding-bottom: 3px; <?php if ($tpl_form['query_no_img']) { ?>background-image: img/dyn/queryNo.<?php if ($tpl_form['query_no_img'] == 1) { ?>gif<?php } elseif ($tpl_form['query_no_img'] == 2) { ?>png<?php } elseif ($tpl_form['query_no_img'] == 3) { ?>jpg<?php } ?>; <?php } ?> }
+.query_no_pretext { font-size: <?=$tpl_form['query_no_pretext_size']?>pt; color: <?=$tpl_form['query_no_pretext_color']?>; }
+.query { font-size: <?=$tpl_form['query_size']?>pt; color: <?=$tpl_form['query_color']?>; background-color: <?=$tpl_form['query_bgcolor']?>; padding-left: 10px; padding-top: 3px; padding-bottom: 3px }
+.input { font-size: <?=$tpl_form['input_size']?>pt; color: <?=$tpl_form['input_color']?>; background-color: <?=$tpl_form['input_bgcolor']?>; padding-left: 10px; padding-top: 3px; padding-bottom: 10px }
+.precomment { font-size: <?=$tpl_form['precomment_size']?>pt; color: <?=$tpl_form['precomment_color']?>; }
+.appcomment { font-size: <?=$tpl_form['appcomment_size']?>pt; color: <?=$tpl_form['appcomment_color']?>; }
+.errmsg { color: #FF0000; }
+--></style>
+	</head>
+	<body>
+		<div align="<?=$tpl_form['comment_position']?>">
+			<?php if ($tpl_form['name_img']) { ?><img src="img/dyn/name_<?=$tpl_id?>.<?php if ($tpl_form['name_img'] == 1) { ?>gif<?php } elseif ($tpl_form['name_img'] == 2) { ?>png<?php } elseif ($tpl_form['name_img'] == 3) { ?>jpg<?php } ?>">
+			<?php } else  { ?><span class="name"><?=$tpl_form['name']?></span><?php } ?>
+		<div class="comment">入力内容を送信しました。<br>
+			ありがとうございました。</div>
+		<hr width="80%">
+		<?php if ($tpl_form['return'] == 1) { ?><a href="<?=$tpl_form['return_url']?>"><?=$tpl_form['return_caption']?></a>
+		<?php } elseif ($tpl_form['return'] == 2) { ?><a href="<?=$tpl_form['return_url']?>"><img src="img/dyn/return_<?=$tpl_id?>.<?php if ($tpl_form['return_img'] == 1) { ?>gif<?php } elseif ($tpl_form['return_img'] == 2) { ?>png<?php } elseif ($tpl_form['return_img'] == 3) { ?>jpg<?php } ?>" alt="<?=htmlspecialchars($tpl_form['return_caption'])?>" title="<?=htmlspecialchars($tpl_form['return_caption'])?>" border="0"></a><?php } ?>
+		</div>
+	</body>
+</html>

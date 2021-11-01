@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+	<head>
+		<meta http-equiv="content-type" content="text/html;charset=Shift_JIS">
+		<title>フォーム一覧</title>
+		<script language="JavaScript" type="text/javascript" src="coolie.js"></script>
+	  <link href="coolie.css" rel="stylesheet" type="text/css">
+		<style type="text/css" media="screen">
+		<!--
+.class12   { color: white; font-size: 12px; font-weight: 500 }
+.class_b { color: #06c; font-size: 12px }
+--></style>
+	</head>
+
+	<body bgcolor="white" leftmargin="0" marginheight="0" marginwidth="0" topmargin="0">
+	<div align="center">
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="class" bgcolor="#0066cc" width="20"></td>
+					<td class="class" bgcolor="#0066cc" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="#0066cc" width="18"></td>
+					<td class="class" bgcolor="#0066cc"></td>
+				</tr>
+				<tr>
+					<td class="class" bgcolor="white" width="20"></td>
+					<td class="class" bgcolor="white" width="248">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="32" border="0"></div>
+					</td>
+					<td class="class" bgcolor="white" width="18"></td>
+					<td class="class" bgcolor="white"></td>
+				</tr>
+				<tr height="14">
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="20" height="28"><img src="img/space.gif" alt="" height="20" width="20" border="0"></td>
+					<td class="class_tbg" rowspan="2" bgcolor="#0066cc" width="248" height="28"><img src="img/login_top.gif" alt="" height="17" width="114" border="0"></td>
+					<td rowspan="2" valign="top" width="18" height="28"><img src="img/bar_p.gif" alt="" height="30" width="18" border="0"></td>
+					<td class="class_tbg" bgcolor="#0066cc" height="14">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="12" width="1" border="0"></div>
+					</td>
+				</tr>
+				<tr height="2">
+					<td bgcolor="white" height="14"></td>
+				</tr>
+				<tr>
+					<td width="20"></td>
+					<td colspan="3">
+						<div align="center">
+							<img src="img/space.gif" alt="" height="5" width="1" border="0"></div>
+					</td>
+				</tr>
+			</table>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" background="../img/back.jpg">
+				<tr>
+					<td background="img/back.jpg" class="class_tbg"><img src="img/form.jpg" alt="" height="30" width="157" border="0"></td>
+				  <td width="150" align="right" valign="middle" class="class_tbg" background="img/back.jpg" ><a href="admin.php" class="back">管理メニュー ▲</a><img src="img/space.gif" alt="" height="20" width="10" border="0"></td>
+				</tr>
+			</table>
+			<table width="730" border="0" cellspacing="5" cellpadding="0">
+				<tr height="15">
+					<td colspan="5"><div align="center"><img src="img/space.gif" alt="" height="15" width="1" border="0"></div></td>
+				</tr>
+				<?php if ($tpl_forms) { ?><?php foreach ($tpl_forms as $tpl_f) { ?>
+				<tr>
+					<td align="center" width="20"><?=$tpl_f['id']?></td>
+					<td align="left" width="75">[<?php if ($tpl_f['type'] == 1) { ?>メール<?php } elseif ($tpl_f['type'] == 2) { ?>アンケート<?php } ?>]</td>
+					<td align="left"><?=$tpl_f['title']?></td>
+					<td rowspan="2" width="20"><img src="img/space.gif" alt="" height="8" width="20" border="0"></td>
+					<td rowspan="2" width="140" align="center"><a href="admin.php?mode=formEdit&id=<?=$tpl_f['id']?>"><img src="img/form_h.gif" width="140" height="20" border="0"></a><a href="javascript:delFormAlert(<?=$tpl_f['type']?>, 'admin.php?mode=formDelete&id=<?=$tpl_f['id']?>');"><img src="img/form_e.gif" width="140" height="20" border="0"></a><?php if ($tpl_f['type'] == 2) { ?><a href="admin.php?mode=formResult&id=<?=$tpl_f['id']?>"><img src="img/download.gif" width="140" height="20" border="0"></a><?php } ?><a href="<?=$tpl_url?>?id=<?=$tpl_f['id']?>" target="_blank"><img src="img/form.gif" width="140" height="20" border="0"></a></td>
+				</tr>
+				<tr height="15">
+					<td><img src="img/space.gif" alt="" height="15" width="1" border="0"></td>
+				  <td align="right">設置URL &gt;&gt; </td>
+				  <form>
+					<td><input type="text" value="<?=$tpl_url?>?id=<?=$tpl_f['id']?>" size="70"></td>
+				  </form>
+				</tr>
+				<tr height="15">
+					<td colspan="5"><hr size="1" noshade></td>
+				</tr>
+				<?php } ?><?php } ?>
+				<tr height="15">
+					<td colspan="5"><div align="center"><img src="img/space.gif" alt="" height="15" width="1" border="0"></div></td>
+				</tr>
+				<tr>
+					<td colspan="5" align="left"><span class="class_b">■ フォームを追加したい場合は、次のタイプを選択して追加ボタンを押してください。</span></td>
+				</tr>
+				<tr>
+					<form method="post" action="admin.php">
+					<input type="hidden" name="mode" value="formCreate">
+					<td align="left" width="27"></td>
+					<td align="left" width="75">&nbsp;</td>
+					<td align="left" width="278"><select name="type" size="1">
+							<option value="1">メールフォーム</option>
+							<option value="2">アンケートフォーム</option>
+						</select></td>
+					<td width="20"><img src="img/space.gif" alt="" height="1" width="20" border="0"></td>
+					<td align="center"><input type="submit" name="submit" value="フォーム追加" border="0"></td>
+				</form></tr>
+			</table>
+		  </div>
+	</body>
+
+</html>
