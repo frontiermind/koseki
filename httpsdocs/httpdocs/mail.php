@@ -36,7 +36,7 @@ if (version_compare(PHP_VERSION, '5.1.0', '>=')) {//PHP5.1.0以上の場合の�
 $site_top = "http://koseki-law.jp/index.html";
 
 // 管理者メールアドレス ※メールを受け取るメールアドレス(複数指定する場合は「,」で区切ってください 例 $to = "aa@aa.aa,bb@bb.bb";)
-$to = "web@fmc-inc.jp";
+$to = "info@koseki-law.jp";
 
 //フォームのメールアドレス入力箇所のname属性の値（name="○○"　の○○部分）
 $Email = "メールアドレス";
@@ -256,7 +256,7 @@ else if($confirmDsp == 1){
 		<a href="index.html#goaisatsu"><img class="quarter" src="goaisatsu_tab2.png"></a>
 		<a href="index.html#bengoshi"><img class="quarter" src="bengoshi_tab2.png"></a>
 		<a href="index.html#access"><img class="quarter" src="access_tab2.png"></a>
-		<a href="index.html#contact"><img class="quarter" src="toiawase_tab2.png"></a>
+		<a href="mailform.html"><img class="quarter" src="toiawase_tab2.png"></a>
 	</nobr>
 </div>
 

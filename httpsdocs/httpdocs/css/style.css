@@ -5,8 +5,14 @@ body.body2 {
 	margin:0px;
 	background-color: #FFFFCC;
 	color: #241a08;
+}
 
-
+body.body3 {
+	margin: -8px;
+	height:930px;
+	margin:0px;
+	background-color: #FFFFCC;
+	color: #241a08;
 }
 
 
@@ -171,7 +177,7 @@ iframe {
   width: 15%;  
   float: left;  
   background-color: #b5d1b5;
-  height: 203.5%;
+  height: 260.5%;
 }  
 
 #sidebar-right {  
@@ -179,8 +185,12 @@ iframe {
   width: 15%;  
   float: right;  
   background-color: #b5d1b5;
-  height: 203.5%;
-}  
+  height: 260.5%;
+}
+
+.body3 #sidebar-left, .body3 #sidebar-right {
+	height: 131.5%;
+}
 
 .footer {
     position: fiexd;
@@ -275,4 +285,8 @@ form textarea {
 .contact_box {
 	margin: 0 auto 30px;
 	text-align: center;
+}
+
+.form-content dd {
+	margin-left: 0;
 }

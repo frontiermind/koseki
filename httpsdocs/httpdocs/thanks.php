@@ -39,7 +39,7 @@
 		<a href="index.html#goaisatsu"><img class="quarter" src="goaisatsu_tab2.png"></a>
 		<a href="index.html#bengoshi"><img class="quarter" src="bengoshi_tab2.png"></a>
 		<a href="index.html#access"><img class="quarter" src="access_tab2.png"></a>
-		<a href="index.html#contact"><img class="quarter" src="toiawase_tab2.png"></a>
+		<a href="mailform.html"><img class="quarter" src="toiawase_tab2.png"></a>
 	</nobr>
 
 <!-- ここからコンテンツ -->
